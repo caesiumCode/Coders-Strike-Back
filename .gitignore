@@ -6,3 +6,6 @@
 
 # MacOS generated file
 *.DS_Store
+
+*.exe
+*json
