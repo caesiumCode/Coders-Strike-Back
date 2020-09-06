@@ -1,4 +1,5 @@
 #include "Program.hpp"
+#include "Entity.hpp"
 
 Program::Program() {
     window.create(sf::VideoMode(1000, 1000), "Coders Strike Back");
@@ -6,6 +7,8 @@ Program::Program() {
 }
 
 void Program::run() {
+    Entity entity(0, 0, 100, sf::Color::Red);
+    
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -14,6 +17,8 @@ void Program::run() {
         }
 
         window.clear();
+        
+        window.draw(entity);
 
         window.display();
     }

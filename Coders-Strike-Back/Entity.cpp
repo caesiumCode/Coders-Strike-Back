@@ -7,3 +7,9 @@ Entity::Entity() {
     color = sf::Color::Black;
 }
 
+Entity::Entity(float posX, float posY, float r, sf::Color col) {
+    x = posX;
+    y = posY;
+    radius = r;
+    color = col;
+}

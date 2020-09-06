@@ -6,6 +6,7 @@
 class Entity : public sf::Drawable {
 public:
     Entity();
+    Entity(float, float, float, sf::Color);
     
 private:
     float x, y, radius;
