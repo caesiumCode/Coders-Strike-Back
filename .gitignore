@@ -1,16 +1,14 @@
+# MacOS generated files
+*.DS_Store
+
+# Windows generated files
+*.exe
+*.json
+
 # Xcode files
 *.xcodeproj
 
-# Libraries
-*.dylib
-
-# MacOS generated file
-*.DS_Store
-
-*.exe
-*json
-
-*.dll
+# Visual Studio files
 *.vcxproj
 *.filters
 *.user
@@ -18,3 +16,7 @@
 /Debug
 /Coders-Strike-Back/Debug
 /.vs
+
+# Libraries
+*.dylib
+*.dll
