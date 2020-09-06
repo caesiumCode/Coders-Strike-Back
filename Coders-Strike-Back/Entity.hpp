@@ -9,17 +9,9 @@ public:
     Entity(float, float, float, sf::Color);
     
 private:
-    float x, y, radius;
-    sf::Color color;
+    sf::CircleShape EntityShape;
     
-    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const {
-        sf::CircleShape texture;
-        texture.setRadius(radius);
-        texture.setPosition(x - radius, y - radius);
-        texture.setFillColor(color);
-        
-        target.draw(texture);
-    }
+    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const {target.draw(EntityShape);}
 };
 
 #endif /* Entity_hpp */
