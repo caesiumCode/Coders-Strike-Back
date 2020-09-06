@@ -7,7 +7,7 @@ class Program {
 public:
     Program();
     void run();
-    
+
 private:
     sf::RenderWindow window;
 };

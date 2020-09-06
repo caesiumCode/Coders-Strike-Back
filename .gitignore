@@ -9,3 +9,12 @@
 
 *.exe
 *json
+
+*.dll
+*.vcxproj
+*.filters
+*.user
+*.sln
+/Debug
+/Coders-Strike-Back/Debug
+/.vs
