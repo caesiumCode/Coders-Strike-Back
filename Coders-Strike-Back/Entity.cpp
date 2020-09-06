@@ -1,15 +1,15 @@
 #include "Entity.hpp"
 
 Entity::Entity() {
-    EntityShape.setOrigin(0., 0.);
-    EntityShape.setRadius(0.);
-    EntityShape.setPosition(0., 0.);
-    EntityShape.setFillColor(sf::Color::Black);
+    x = 0.;
+    y = 0.;
+    radius = 0.;
+    color = sf::Color::Black;    
 }
 
-Entity::Entity(float x, float y, float r, sf::Color col) {
-    EntityShape.setOrigin(r, r);
-    EntityShape.setRadius(r);
-    EntityShape.setPosition(x, y);
-    EntityShape.setFillColor(col);
+Entity::Entity(float posX, float posY, float r, sf::Color col) {
+    x = posX;
+    y = posY;
+    radius = r;
+    color = col;
 }

@@ -7,7 +7,7 @@ Program::Program() {
 }
 
 void Program::run() {
-    Entity entity(0, 0, 100, sf::Color::Red);
+    Entity entity(500, 500, 300, sf::Color::Red);
     
     while (window.isOpen()) {
         sf::Event event;
