@@ -6,7 +6,7 @@ Program::Program() {
 }
 
 void Program::run() {
-    Pod pod(500, 500, 300, sf::Color::Red);
+    Checkpoint pod(500, 500, 300, sf::Color::Red);
     
     while (window.isOpen()) {
         sf::Event event;

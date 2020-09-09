@@ -3,8 +3,8 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "Entity.hpp"
 #include "Pod.hpp"
+#include "Checkpoint.hpp"
 
 class Program {
 public:

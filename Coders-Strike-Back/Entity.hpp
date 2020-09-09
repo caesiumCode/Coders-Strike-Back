@@ -3,12 +3,12 @@
 
 #include <SFML/Graphics.hpp>
 
-class Entity : public sf::Drawable {
+class Entity : public sf::Vector2f, public sf::Drawable {
 public:
     Entity();
     Entity(float, float, float, sf::Color);
     
-    float x, y, radius;
+    float radius;
     sf::Color color;
             
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const {
