@@ -8,10 +8,9 @@ public:
     Entity();
     Entity(float, float, float, sf::Color);
     
-private:
     float x, y, radius;
     sf::Color color;
-        
+            
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const {
         sf::CircleShape entityShape;
         

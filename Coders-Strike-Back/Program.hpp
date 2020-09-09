@@ -3,6 +3,9 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "Entity.hpp"
+#include "Pod.hpp"
+
 class Program {
 public:
     Program();
