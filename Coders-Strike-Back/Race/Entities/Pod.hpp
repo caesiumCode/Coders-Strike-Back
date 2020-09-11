@@ -6,7 +6,8 @@
 class Pod : public Entity {
 public:
     Pod();
-    Pod(float, float, float, sf::Color);
+    Pod(float, float, float);
+    Pod(sf::Vector2f, float);
     
     // Physical state
     sf::Vector2f speed;

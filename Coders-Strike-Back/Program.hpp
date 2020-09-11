@@ -3,16 +3,18 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "Pod.hpp"
-#include "Checkpoint.hpp"
+#include "Race.hpp"
+#include "RenderRace.hpp"
 
 class Program {
 public:
     Program();
     void run();
-
+    
 private:
     sf::RenderWindow window;
+    
+    sf::View viewRace;
 };
 
 #endif /* Program_hpp */

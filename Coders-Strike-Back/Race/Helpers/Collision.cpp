@@ -3,7 +3,7 @@
 Collision::Collision() {
     id1 = 0;
     id2 = 0;
-    time = 0.;
+    time = 0.f;
 }
 
 Collision::Collision(int a, int b, float t) {

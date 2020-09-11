@@ -1,12 +1,18 @@
 #include "Program.hpp"
 
 Program::Program() {
-    window.create(sf::VideoMode(1000, 1000), "Coders Strike Back");
+    window.create(sf::VideoMode(1800, 1000), "Coders Strike Back");
     window.setFramerateLimit(45);
+    
+    
 }
 
 void Program::run() {
-    Checkpoint pod(500, 500, 300, sf::Color::Red);
+    RenderRace race;
+    
+    viewRace.reset(sf::FloatRect(0, 0, race.WIDTH, race.HEIGHT));
+    viewRace.setViewport(sf::FloatRect(0.f, 0.f, 1.f, 1.f));
+    window.setView(viewRace);
     
     while (window.isOpen()) {
         sf::Event event;
@@ -17,7 +23,7 @@ void Program::run() {
 
         window.clear();
         
-        window.draw(pod);
+        window.draw(race);
 
         window.display();
     }

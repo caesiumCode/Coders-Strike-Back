@@ -3,11 +3,13 @@
 
 #include <SFML/Graphics.hpp>
 
-class Entity : public sf::Vector2f, public sf::Drawable {
+class Entity : public sf::Drawable {
 public:
     Entity();
-    Entity(float, float, float, sf::Color);
+    Entity(float, float, float);
+    Entity(sf::Vector2f, float);
     
+    sf::Vector2f position;
     float radius;
     sf::Color color;
             
@@ -18,7 +20,7 @@ public:
         entityShape.setPointCount(64);
         
         entityShape.setRadius(radius);
-        entityShape.setPosition(x, y);
+        entityShape.setPosition(position.x, position.y);
         entityShape.setFillColor(color);
         
         target.draw(entityShape);

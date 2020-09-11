@@ -1,7 +1,7 @@
 #include "Move.hpp"
 
 Move::Move() {
-    target = sf::Vector2f(0., 0.);
+    target = sf::Vector2f(0.f, 0.f);
     thrust = 0;
 }
 
