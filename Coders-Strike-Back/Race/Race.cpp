@@ -28,16 +28,19 @@ void Race::reset() {
     int N = rand(CHECKPOINT_MIN, CHECKPOINT_MAX);
     
     while (checkpoints.size() < N) {
+        // Generate a checkpoint
         Checkpoint checkpoint(rand(CHECKPOINT_RADIUS, WIDTH - CHECKPOINT_RADIUS),
                               rand(CHECKPOINT_RADIUS, HEIGHT - CHECKPOINT_RADIUS),
                               CHECKPOINT_RADIUS,
                               CHECKPOINT_COLOR);
         
+        // Check if there is a collision with an existing checkpoint
         bool collision = false;
         for (int i = 0; i < checkpoints.size(); i++)
             if (norm2(checkpoint.position - checkpoints[i].position) < 4*CHECKPOINT_RADIUS*CHECKPOINT_RADIUS)
                 collision = true;
         
+        // Add the checkpoint if it does not collide any other checkpoint
         if (!collision)
             checkpoints.push_back(checkpoint);
     }
