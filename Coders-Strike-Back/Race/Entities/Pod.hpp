@@ -8,6 +8,8 @@ public:
     Pod();
     Pod(float, float, float);
     Pod(sf::Vector2f, float);
+    Pod(float, float, float, sf::Color);
+    Pod(sf::Vector2f, float, sf::Color);
     
     // Physical state
     sf::Vector2f speed;

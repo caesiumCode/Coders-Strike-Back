@@ -11,9 +11,6 @@ public:
     RenderRace();
     RenderRace(unsigned int);
     
-    // Constant variables
-    const sf::Color CHECKPOINT_COLOR = sf::Color::White, TEAM1_COLOR = sf::Color::Blue, TEAM2_COLOR = sf::Color::Red;
-    
     // Resources
     sf::Font font;
     

@@ -17,3 +17,15 @@ Entity::Entity(sf::Vector2f pos, float r) {
     radius = r;
     color = sf::Color::Black;
 }
+
+Entity::Entity(float posX, float posY, float r, sf::Color col) {
+    position = sf::Vector2f(posX, posY);
+    radius = r;
+    color = col;
+}
+
+Entity::Entity(sf::Vector2f pos, float r, sf::Color col) {
+    position = pos;
+    radius = r;
+    color = col;
+}

@@ -5,14 +5,6 @@ RenderRace::RenderRace() : RenderRace((int)time(nullptr)) {
 }
 
 RenderRace::RenderRace(unsigned int seed) : Race(seed) {
-    for (int i = 0; i < checkpoints.size(); i++)
-        checkpoints[i].color = CHECKPOINT_COLOR;
-    
-    team1[0].color = TEAM1_COLOR;
-    team1[1].color = TEAM1_COLOR;
-    team2[0].color = TEAM2_COLOR;
-    team2[1].color = TEAM2_COLOR;
-    
     // Load resources
     std::string fontPath = resourcePath() + "Fonts/Sansation_Bold.ttf";
     if (!font.loadFromFile(fontPath))
@@ -20,7 +12,9 @@ RenderRace::RenderRace(unsigned int seed) : Race(seed) {
 }
 
 void RenderRace::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-    // Draw checkpoints
+    /* - - - Draw checkpoints - - - */
+    
+    // Initialise numbering
     sf::Text numbering;
     numbering.setFont(font);
     numbering.setFillColor(sf::Color::Black);
@@ -39,9 +33,13 @@ void RenderRace::draw(sf::RenderTarget& target, sf::RenderStates states) const {
         
     }
     
-    // Draw players
-    target.draw(team1[0]);
-    target.draw(team1[1]);
-    target.draw(team2[0]);
-    target.draw(team2[1]);
+    /* - - - Draw players - - - */
+    
+    // Team1
+    for (int i = 0; i < team1Size; i++)
+        target.draw(team1[i]);
+    
+    // Team2
+    for (int i = 0; i < team2Size; i++)
+        target.draw(team2[i]);
 }

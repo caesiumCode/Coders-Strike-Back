@@ -14,6 +14,9 @@ class Race {
 public:
     Race();
     Race(unsigned int);
+    
+    void reset();
+    void reset(unsigned int);
         
     // Constant variables
     const int WIDTH = 16000, HEIGHT = 9000;
@@ -21,9 +24,11 @@ public:
     const int CHECKPOINT_RADIUS = 600, POD_RADIUS = 400;
     const int ANGLE_LIMIT = 18, THRUST_LIMIT = 100, TURN_LIMIT = 100;
     const float FRICTION_COEFFICIENT = 0.85f;
+    const sf::Color CHECKPOINT_COLOR = sf::Color::White, TEAM1_COLOR = sf::Color::Blue, TEAM2_COLOR = sf::Color::Red;
     
     // Players
     std::vector<Pod> team1, team2;
+    int team1Size, team2Size;
     
     // Race path
     int laps;

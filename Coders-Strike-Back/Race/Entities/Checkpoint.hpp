@@ -8,6 +8,8 @@ public:
     Checkpoint();
     Checkpoint(float, float, float);
     Checkpoint(sf::Vector2f, float);
+    Checkpoint(float, float, float, sf::Color);
+    Checkpoint(sf::Vector2f, float, sf::Color);
 };
 
 #endif /* Checkpoint_hpp */
