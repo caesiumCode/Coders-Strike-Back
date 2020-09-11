@@ -6,18 +6,17 @@ int rand(int min, int max);
 /* - - - Class members - - - */
 
 Race::Race() {
+    seed = (int)time(nullptr);
     reset();
 }
 
-Race::Race(unsigned int seed) {
-    reset(seed);
+Race::Race(unsigned int s) {
+    seed = s;
+    reset();
 }
 
 void Race::reset() {
-    reset((int)time(nullptr));
-}
-
-void Race::reset(unsigned int seed) {
+    seed++;
     srand(seed);
     
     /* - - - Initialise race path - - - */

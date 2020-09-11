@@ -16,7 +16,6 @@ public:
     Race(unsigned int);
     
     void reset();
-    void reset(unsigned int);
         
     // Constant variables
     static const int WIDTH = 16000, HEIGHT = 9000;
@@ -37,6 +36,8 @@ public:
     // Current race state
     int lapsDone, turnsDone;
     
+private:
+    unsigned int seed;
 };
 
 #endif /* Race_hpp */
