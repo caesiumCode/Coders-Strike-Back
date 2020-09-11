@@ -19,7 +19,7 @@ public:
     void reset(unsigned int);
         
     // Constant variables
-    const int WIDTH = 16000, HEIGHT = 9000;
+    static const int WIDTH = 16000, HEIGHT = 9000;
     const int CHECKPOINT_MIN = 2, CHECKPOINT_MAX = 6;
     const int CHECKPOINT_RADIUS = 600, POD_RADIUS = 400;
     const int ANGLE_LIMIT = 18, THRUST_LIMIT = 100, TURN_LIMIT = 100;
