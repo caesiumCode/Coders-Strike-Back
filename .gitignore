@@ -20,6 +20,3 @@
 # Libraries
 *.dylib
 *.dll
-
-# Resource File
-*/ResourceFile.cpp
