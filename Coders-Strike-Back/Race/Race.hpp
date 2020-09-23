@@ -16,6 +16,8 @@ public:
     Race(unsigned int);
     
     void reset();
+    void reset(unsigned int);
+    void update();
         
     // Constant variables
     static const int WIDTH = 16000, HEIGHT = 9000;

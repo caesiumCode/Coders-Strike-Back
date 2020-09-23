@@ -1,7 +1,11 @@
 #ifndef Pod_hpp
 #define Pod_hpp
 
+#include <vector>
+
 #include "Entity.hpp"
+#include "Checkpoint.hpp"
+#include "Move.hpp"
 
 class Pod : public Entity {
 public:
@@ -11,8 +15,11 @@ public:
     Pod(float, float, float, sf::Color);
     Pod(sf::Vector2f, float, sf::Color);
     
+    void update(const std::vector<Checkpoint>&);
+    
     // Physical state
     sf::Vector2f speed;
+    float angle;
     int thrust;
     
     // Special move
@@ -24,7 +31,14 @@ public:
     int checkedCheckpoint;
     int timeout;
     
+private:
+    
     // NeuralNet brain;
+    
+    Move nextMove(const std::vector<Checkpoint>&);
+    void update(Move);
+    
+    
 };
 
 #endif /* Pod_hpp */

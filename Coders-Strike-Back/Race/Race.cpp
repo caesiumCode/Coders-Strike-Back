@@ -7,16 +7,21 @@ int rand(int min, int max);
 
 Race::Race() {
     seed = (int)time(nullptr);
-    reset();
+    reset(seed);
 }
 
 Race::Race(unsigned int s) {
     seed = s;
-    reset();
+    reset(seed);
 }
 
 void Race::reset() {
     seed++;
+    reset(seed);
+}
+
+void Race::reset(unsigned int s) {
+    seed = s;
     srand(seed);
     
     /* - - - Initialise race path - - - */
