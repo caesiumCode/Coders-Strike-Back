@@ -22,4 +22,4 @@
 *.dll
 
 # Resource File
-/Resources/ResourceFile.cpp
+Coders-Strike-Back/Resources/ResourceFile.cpp
