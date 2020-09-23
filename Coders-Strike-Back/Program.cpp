@@ -2,7 +2,7 @@
 
 Program::Program() {
     // Set window
-    window.create(sf::VideoMode(1800, 1000), "Coders Strike Back");
+    window.create(windowDim(), "Coders Strike Back");
     window.setFramerateLimit(45);
     
     // Set view

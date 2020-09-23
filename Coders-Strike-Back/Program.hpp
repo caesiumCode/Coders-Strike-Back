@@ -5,6 +5,7 @@
 
 #include "Race.hpp"
 #include "RenderRace.hpp"
+#include "ResourceFile.hpp"
 
 class Program {
 public:
