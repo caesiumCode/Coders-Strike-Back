@@ -73,9 +73,22 @@ void Race::reset(unsigned int s) {
     for (int i = team2Size/2 + team1Size; i < nbPlayers; i++)
         team2.push_back(Pod(alignBegin + float(2*i*POD_RADIUS)*alignDir, POD_RADIUS, TEAM2_COLOR));
     
+    // Initialise angles
+    for (int i = 0; i < team1Size; i++)
+        team1[i].initRace(checkpoints[1]);
+    for (int i = 0; i < team2Size; i++)
+        team2[i].initRace(checkpoints[1]);
+    
     /* - - - Current state variable - - - */
     lapsDone = 0;
     turnsDone = 0;
+}
+
+void Race::update() {
+    for (int i = 0; i < team1Size; i++)
+        team1[i].update(checkpoints);
+    for (int i = 0; i < team2Size; i++)
+        team2[i].update(checkpoints);
 }
 
 /* - - - Helper Functions - - - */

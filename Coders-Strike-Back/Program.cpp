@@ -31,5 +31,7 @@ void Program::run() {
         window.draw(race);
 
         window.display();
+        
+        race.update();
     }
 }

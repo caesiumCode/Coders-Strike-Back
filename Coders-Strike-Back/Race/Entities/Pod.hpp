@@ -6,6 +6,7 @@
 #include "Entity.hpp"
 #include "Checkpoint.hpp"
 #include "Move.hpp"
+#include "Geometry.hpp"
 
 class Pod : public Entity {
 public:
@@ -15,12 +16,17 @@ public:
     Pod(float, float, float, sf::Color);
     Pod(sf::Vector2f, float, sf::Color);
     
+    void initRace(Checkpoint);
+    
     void update(const std::vector<Checkpoint>&);
+    
+    // Constant Variables
+    const float ANGLE_LIMIT = 18, FRICTION_COEFFICIENT = 0.85f;
+    const int THRUST_LIMIT = 100, TURN_LIMIT = 100;
     
     // Physical state
     sf::Vector2f speed;
     float angle;
-    int thrust;
     
     // Special move
     int shieldCooldown;
@@ -40,6 +46,8 @@ public:
         entityShape.setRadius(radius);
         entityShape.setPosition(position.x, position.y);
         entityShape.setFillColor(color);
+        
+        entityShape.setRotation(angle + 90.f);
         
         target.draw(entityShape);
     }
