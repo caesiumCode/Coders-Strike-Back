@@ -6,5 +6,5 @@ std::string resourcePath() {
 
 
 sf::VideoMode windowDim() {
-    return sf::VideoMode(800, 1000);
+    return sf::VideoMode(1800, 1000);
 }
