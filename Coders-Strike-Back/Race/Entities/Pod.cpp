@@ -38,6 +38,9 @@ void Pod::update(const std::vector<Checkpoint> & checkpoints) {
 }
 
 Move Pod::nextMove(const std::vector<Checkpoint>& checkpoints) {
+    if (norm2(position - checkpoints[nextCheckpointId].position) < CHECKPOINT_RADIUS*CHECKPOINT_RADIUS)
+        nextCheckpointId = (nextCheckpointId+1)%checkpoints.size();
+    
     return Move(checkpoints[nextCheckpointId].position, 100);
 }
 

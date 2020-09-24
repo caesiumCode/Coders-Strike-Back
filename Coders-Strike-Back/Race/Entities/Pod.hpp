@@ -23,6 +23,7 @@ public:
     // Constant Variables
     const float ANGLE_LIMIT = 18, FRICTION_COEFFICIENT = 0.85f;
     const int THRUST_LIMIT = 100, TURN_LIMIT = 100;
+    const int CHECKPOINT_RADIUS = 600;
     
     // Physical state
     sf::Vector2f speed;
