@@ -2,7 +2,9 @@
 #define Geometry_hpp
 
 #include <SFML/Graphics.hpp>
-#include <cmath>
+
+#define _USE_MATH_DEFINES
+#include <math.h>
 
 float norm(sf::Vector2f);
 float norm2(sf::Vector2f);
