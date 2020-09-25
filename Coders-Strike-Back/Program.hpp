@@ -17,6 +17,7 @@ public:
 private:
     sf::RenderWindow window;
     
+    const int MARGIN = 1000;
     sf::View viewRace;
 };
 

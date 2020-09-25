@@ -52,6 +52,7 @@ public:
     }
     
 private:
+    void init();
     
     // NeuralNet brain;
     

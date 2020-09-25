@@ -54,7 +54,7 @@ void Race::reset(unsigned int s) {
     
     // Number of players
     team1Size = 1;
-    team2Size = 0;
+    team2Size = 1;
     int nbPlayers = team1Size+team2Size;
     team1.clear();
     team2.clear();

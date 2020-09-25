@@ -3,10 +3,10 @@
 Program::Program() {
     // Set window
     window.create(windowDim(), "Coders Strike Back");
-    window.setFramerateLimit(45);
+    window.setFramerateLimit(30);
     
     // Set view
-    viewRace.reset(sf::FloatRect(0, 0, RACE::WIDTH, RACE::HEIGHT));
+    viewRace.reset(sf::FloatRect(-MARGIN, -MARGIN, RACE::WIDTH + 2*MARGIN, RACE::HEIGHT + 2*MARGIN));
     viewRace.setViewport(sf::FloatRect(0.f, 0.f, 1.f, 1.f));
     window.setView(viewRace);
 }

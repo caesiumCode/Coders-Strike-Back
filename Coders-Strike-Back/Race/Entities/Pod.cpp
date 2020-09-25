@@ -1,26 +1,27 @@
 #include "Pod.hpp"
 
 Pod::Pod() : Entity() {
-    angle = 0.f;
-    nextCheckpointId = 1;
+    init();
 }
 
 Pod::Pod(float posX, float posY, float radius) : Entity(posX, posY, radius) {
-    angle = 0.f;
-    nextCheckpointId = 1;
+    init();
 }
 
 Pod::Pod(sf::Vector2f pos, float radius) : Entity(pos, radius) {
-    angle = 0.f;
-    nextCheckpointId = 1;
+    init();
 }
 
 Pod::Pod(float posX, float posY, float radius, sf::Color col) : Entity(posX, posY, radius, col) {
-    angle = 0.f;
-    nextCheckpointId = 1;
+    init();
 }
 
 Pod::Pod(sf::Vector2f pos, float radius, sf::Color col) : Entity(pos, radius, col) {
+    init();
+}
+
+void Pod::init() {
+    speed = sf::Vector2f(0.f, 0.f);
     angle = 0.f;
     nextCheckpointId = 1;
 }

@@ -12,6 +12,7 @@ public:
     
     // Resources
     sf::Font font;
+    sf::Texture team1Texture, team2Texture, CPTexture, backgroundTexture;
     
     // Render method ( ex: window.draw(renderrace) )
     virtual void draw(sf::RenderTarget&, sf::RenderStates) const;
