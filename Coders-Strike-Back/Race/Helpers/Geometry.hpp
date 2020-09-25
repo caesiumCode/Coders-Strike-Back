@@ -9,7 +9,7 @@
 float norm(sf::Vector2f);
 float norm2(sf::Vector2f);
 
-// Normalized Perpendicular vecteur (clockwise)
+// Normalized orthogonal vecteur (clockwise)
 sf::Vector2f orthonormal(sf::Vector2f);
 
 float absAngle(sf::Vector2f);

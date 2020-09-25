@@ -18,7 +18,7 @@ public:
     sf::RectangleShape background, CPShape, team1PodShape, team2PodShape;
     sf::Text numbering;
     
-    // Render method ( ex: window.draw(renderrace) )
+    // Render method
     void render(sf::RenderWindow&);
 };
 

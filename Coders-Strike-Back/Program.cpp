@@ -14,7 +14,10 @@ Program::Program() {
 void Program::run() {
     RenderRace race;
     
+    // Program loop
     while (window.isOpen()) {
+        
+        // Manage events
         sf::Event event;
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed)
@@ -25,13 +28,13 @@ void Program::run() {
                     race.reset();
             }
         }
-
-        window.clear();
         
+        // Render
+        window.clear();
         race.render(window);
-
         window.display();
         
+        // Update
         race.update();
     }
 }
