@@ -48,7 +48,7 @@ void Pod::update(Move move) {
     // change angle
     sf::Vector2f dir = move.target - position;
     
-    float angleDifference = angle - absAngle(dir);
+    float angleDifference = absAngle(dir) - angle;
     if (angleDifference > ANGLE_LIMIT)
         angle += ANGLE_LIMIT;
     else if (angleDifference < -ANGLE_LIMIT)
