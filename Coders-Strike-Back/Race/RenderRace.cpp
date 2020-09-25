@@ -5,6 +5,8 @@ RenderRace::RenderRace() : RenderRace((int)time(nullptr)) {
 }
 
 RenderRace::RenderRace(unsigned int seed) : Race(seed) {
+    /* - - - Load resources - - -*/
+    
     // Load font
     std::string path = resourcePath() + "Fonts/Sansation_Bold.ttf";
     if (!font.loadFromFile(path))
@@ -26,69 +28,72 @@ RenderRace::RenderRace(unsigned int seed) : Race(seed) {
     path = resourcePath() + "Textures/Checkpoint.png";
     if (!CPTexture.loadFromFile(path))
         std::cout << "Resource not found : " << path << std::endl;
-}
-
-void RenderRace::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-    /* - - - Draw Background - - - */
-    sf::RectangleShape background;
+    
+    /* - - - Initialise shapes - - -*/
+    
+    // Background
     background.setSize(sf::Vector2f(RACE::WIDTH, RACE::HEIGHT));
     background.setTexture(&backgroundTexture);
-    target.draw(background);
     
-    /* - - - Draw checkpoints - - - */
+    // Pods
+    team1PodShape.setSize(sf::Vector2f(2.f*CP::RADIUS, 2.f*CP::RADIUS));
+    team1PodShape.setOrigin(CP::RADIUS, CP::RADIUS);
+    team1PodShape.setTexture(&team1Texture);
     
-    // Initialise Checkpoint
-    sf::RectangleShape CPShape;
-    CPShape.setSize(sf::Vector2f(2.f*CP::RADIUS, 2.f*CP::RADIUS));
-    CPShape.setOrigin(CP::RADIUS, CP::RADIUS);
+    team2PodShape.setSize(sf::Vector2f(2.f*CP::RADIUS, 2.f*CP::RADIUS));
+    team2PodShape.setOrigin(CP::RADIUS, CP::RADIUS);
+    team2PodShape.setTexture(&team2Texture);
     
-    // Initialise numbering
-    sf::Text numbering;
+    // Checkpoints
     numbering.setFont(font);
     numbering.setFillColor(sf::Color::White);
     numbering.setCharacterSize(CP::RADIUS*0.7f);
     
+    CPShape.setSize(sf::Vector2f(2.f*CP::RADIUS, 2.f*CP::RADIUS));
+    CPShape.setOrigin(CP::RADIUS, CP::RADIUS);
+    CPShape.setTexture(&CPTexture);
+}
+
+void RenderRace::render(sf::RenderWindow& window) {
+    /* - - - Draw Background - - - */
+    window.draw(background);
+    
+    /* - - - Draw checkpoints - - - */
     for (int i = 0; i < checkpoints.size(); i++) {
         Checkpoint cp = checkpoints[i];
         
         // Draw checkpoint
         CPShape.setPosition(cp.position.x, cp.position.y);
         CPShape.setTexture(&CPTexture);
-        target.draw(CPShape);
+        window.draw(CPShape);
         
         // Draw numbering
         numbering.setString(std::to_string(i));
         sf::FloatRect textRect = numbering.getLocalBounds();
         numbering.setOrigin(textRect.left + textRect.width/2.f, textRect.top + textRect.height/2.f);
         numbering.setPosition(checkpoints[i].position);
-        target.draw(numbering);
+        window.draw(numbering);
         
     }
     
     /* - - - Draw players - - - */
-    sf::RectangleShape PodShape;
-    PodShape.setSize(sf::Vector2f(2.f*POD::RADIUS, 2.f*POD::RADIUS));
-    PodShape.setOrigin(POD::RADIUS, POD::RADIUS);
-    
     // Team1
-    PodShape.setTexture(&team1Texture);
     for (int i = 0; i < team1Size; i++) {
         Pod pod = team1[i];
                 
-        PodShape.setPosition(pod.position.x, pod.position.y);
-        PodShape.setRotation(pod.angle * 180.f / M_PI + 90.f);
+        team1PodShape.setPosition(pod.position.x, pod.position.y);
+        team1PodShape.setRotation(pod.angle * 180.f / M_PI + 90.f);
         
-        target.draw(PodShape);
+        window.draw(team1PodShape);
     }
     
     // Team2
-    PodShape.setTexture(&team2Texture);
     for (int i = 0; i < team2Size; i++) {
         Pod pod = team2[i];
                 
-        PodShape.setPosition(pod.position.x, pod.position.y);
-        PodShape.setRotation(pod.angle * 180.f / M_PI + 90.f);
+        team2PodShape.setPosition(pod.position.x, pod.position.y);
+        team2PodShape.setRotation(pod.angle * 180.f / M_PI + 90.f);
         
-        target.draw(PodShape);
+        window.draw(team2PodShape);
     }
 }

@@ -5,7 +5,7 @@
 
 #include "Race.hpp"
 
-class RenderRace : public Race, public sf::Drawable {
+class RenderRace : public Race {
 public:
     RenderRace();
     RenderRace(unsigned int);
@@ -14,8 +14,12 @@ public:
     sf::Font font;
     sf::Texture team1Texture, team2Texture, CPTexture, backgroundTexture;
     
+    // Shapes
+    sf::RectangleShape background, CPShape, team1PodShape, team2PodShape;
+    sf::Text numbering;
+    
     // Render method ( ex: window.draw(renderrace) )
-    virtual void draw(sf::RenderTarget&, sf::RenderStates) const;
+    void render(sf::RenderWindow&);
 };
 
 #endif /* RenderRace_hpp */

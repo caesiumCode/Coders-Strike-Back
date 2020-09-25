@@ -28,7 +28,7 @@ void Program::run() {
 
         window.clear();
         
-        window.draw(race);
+        race.render(window);
 
         window.display();
         
