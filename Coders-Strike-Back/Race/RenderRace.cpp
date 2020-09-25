@@ -18,7 +18,7 @@ void RenderRace::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     sf::Text numbering;
     numbering.setFont(font);
     numbering.setFillColor(sf::Color::Black);
-    numbering.setCharacterSize(CHECKPOINT_RADIUS);
+    numbering.setCharacterSize(CP::CHECKPOINT_RADIUS);
     
     for (int i = 0; i < checkpoints.size(); i++) {
         // Draw entity

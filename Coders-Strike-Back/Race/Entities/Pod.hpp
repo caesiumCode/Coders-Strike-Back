@@ -8,6 +8,8 @@
 #include "Move.hpp"
 #include "Geometry.hpp"
 
+#include "Env.hpp"
+
 class Pod : public Entity {
 public:
     Pod();
@@ -20,10 +22,6 @@ public:
     
     void update(const std::vector<Checkpoint>&);
     
-    // Constant Variables
-    const float ANGLE_LIMIT = 18 * M_PI / 180.f, FRICTION_COEFFICIENT = 0.85f;
-    const int THRUST_LIMIT = 100, TURN_LIMIT = 100;
-    const int CHECKPOINT_RADIUS = 600;
     
     // Physical state
     sf::Vector2f speed;

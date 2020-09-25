@@ -2,11 +2,12 @@
 #define Program_hpp
 
 #include <SFML/Graphics.hpp>
-#include <iostream>
 
 #include "Race.hpp"
 #include "RenderRace.hpp"
 #include "ResourceFile.hpp"
+
+#include "Env.hpp"
 
 class Program {
 public:

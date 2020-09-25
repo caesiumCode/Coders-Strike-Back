@@ -1,10 +1,9 @@
 #ifndef RenderRace_hpp
 #define RenderRace_hpp
 
-#include "iostream"
+#include <iostream>
 
 #include "Race.hpp"
-#include "ResourceFile.hpp"
 
 class RenderRace : public Race, public sf::Drawable {
 public:

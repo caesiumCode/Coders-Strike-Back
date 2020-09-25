@@ -30,19 +30,19 @@ void Race::reset(unsigned int s) {
     
     // checkpoints
     checkpoints.clear();
-    int N = rand(CHECKPOINT_MIN, CHECKPOINT_MAX);
+    int N = rand(RACE::CHECKPOINT_MIN, RACE::CHECKPOINT_MAX);
     
     while (checkpoints.size() < N) {
         // Generate a checkpoint
-        Checkpoint checkpoint(rand(CHECKPOINT_RADIUS, WIDTH - CHECKPOINT_RADIUS),
-                              rand(CHECKPOINT_RADIUS, HEIGHT - CHECKPOINT_RADIUS),
-                              CHECKPOINT_RADIUS,
-                              CHECKPOINT_COLOR);
+        Checkpoint checkpoint(rand(CP::CHECKPOINT_RADIUS, RACE::WIDTH - CP::CHECKPOINT_RADIUS),
+                              rand(CP::CHECKPOINT_RADIUS, RACE::HEIGHT - CP::CHECKPOINT_RADIUS),
+                              CP::CHECKPOINT_RADIUS,
+                              CP::CHECKPOINT_COLOR);
         
         // Check if there is a collision with an existing checkpoint
         bool collision = false;
         for (int i = 0; i < checkpoints.size(); i++)
-            if (norm2(checkpoint.position - checkpoints[i].position) < 4*CHECKPOINT_RADIUS*CHECKPOINT_RADIUS)
+            if (norm2(checkpoint.position - checkpoints[i].position) < 4*CP::CHECKPOINT_RADIUS*CP::CHECKPOINT_RADIUS)
                 collision = true;
         
         // Add the checkpoint if it does not collide any other checkpoint
@@ -61,17 +61,17 @@ void Race::reset(unsigned int s) {
     
     // Initialise the alignement line
     sf::Vector2f alignDir = orthonormal(checkpoints[1].position - checkpoints[0].position);
-    sf::Vector2f alignBegin = checkpoints[0].position - float(nbPlayers - 1)*POD_RADIUS*alignDir;
+    sf::Vector2f alignBegin = checkpoints[0].position - float(nbPlayers - 1)*POD::POD_RADIUS*alignDir;
     
     // Team1
     for (int i = team2Size/2; i < team2Size/2 + team1Size; i++)
-        team1.push_back(Pod(alignBegin + float(2*i*POD_RADIUS)*alignDir, POD_RADIUS, TEAM1_COLOR));
+        team1.push_back(Pod(alignBegin + float(2*i*POD::POD_RADIUS)*alignDir, POD::POD_RADIUS, POD::TEAM1_COLOR));
     
     // Team2
     for (int i = 0; i < team2Size/2; i++)
-        team2.push_back(Pod(alignBegin + float(2*i*POD_RADIUS)*alignDir, POD_RADIUS, TEAM2_COLOR));
+        team2.push_back(Pod(alignBegin + float(2*i*POD::POD_RADIUS)*alignDir, POD::POD_RADIUS, POD::TEAM2_COLOR));
     for (int i = team2Size/2 + team1Size; i < nbPlayers; i++)
-        team2.push_back(Pod(alignBegin + float(2*i*POD_RADIUS)*alignDir, POD_RADIUS, TEAM2_COLOR));
+        team2.push_back(Pod(alignBegin + float(2*i*POD::POD_RADIUS)*alignDir, POD::POD_RADIUS, POD::TEAM2_COLOR));
     
     // Initialise angles
     for (int i = 0; i < team1Size; i++)

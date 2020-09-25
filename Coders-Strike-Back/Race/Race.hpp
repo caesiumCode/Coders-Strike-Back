@@ -10,6 +10,8 @@
 #include "Geometry.hpp"
 #include "ResourceFile.hpp"
 
+#include "Env.hpp"
+
 class Race {
 public:
     Race();
@@ -19,12 +21,6 @@ public:
     void reset(unsigned int);
     void update();
         
-    // Constant variables
-    static const int WIDTH = 16000, HEIGHT = 9000;
-    const int CHECKPOINT_MIN = 2, CHECKPOINT_MAX = 6;
-    const int CHECKPOINT_RADIUS = 600, POD_RADIUS = 400;
-    const sf::Color CHECKPOINT_COLOR = sf::Color::White, TEAM1_COLOR = sf::Color::Blue, TEAM2_COLOR = sf::Color::Red;
-    
     // Players
     std::vector<Pod> team1, team2;
     int team1Size, team2Size;

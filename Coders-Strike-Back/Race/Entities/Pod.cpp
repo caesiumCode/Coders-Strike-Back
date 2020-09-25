@@ -38,7 +38,7 @@ void Pod::update(const std::vector<Checkpoint> & checkpoints) {
 }
 
 Move Pod::nextMove(const std::vector<Checkpoint>& checkpoints) {
-    if (norm2(position - checkpoints[nextCheckpointId].position) < CHECKPOINT_RADIUS*CHECKPOINT_RADIUS)
+    if (norm2(position - checkpoints[nextCheckpointId].position) < CP::CHECKPOINT_RADIUS*CP::CHECKPOINT_RADIUS)
         nextCheckpointId = (nextCheckpointId+1)%checkpoints.size();
     
     return Move(checkpoints[nextCheckpointId].position, 50);
@@ -49,12 +49,16 @@ void Pod::update(Move move) {
     sf::Vector2f dir = move.target - position;
     
     float angleDifference = absAngle(dir) - angle;
-    if (angleDifference > ANGLE_LIMIT)
-        angle += ANGLE_LIMIT;
-    else if (angleDifference < -ANGLE_LIMIT)
-        angle -= ANGLE_LIMIT;
+    reduceAngle(angleDifference);
+    
+    if (angleDifference > POD::ANGLE_LIMIT)
+        angle += POD::ANGLE_LIMIT;
+    else if (angleDifference < -POD::ANGLE_LIMIT)
+        angle -= POD::ANGLE_LIMIT;
     else
         angle += angleDifference;
+    
+    reduceAngle(angle);
     
     // change position
     dir = float(move.thrust) * sf::Vector2f(cos(angle), sin(angle));
@@ -65,7 +69,7 @@ void Pod::update(Move move) {
     position.y = round(position.y);
     
     // apply friction
-    speed *= FRICTION_COEFFICIENT;
+    speed *= POD::FRICTION_COEFFICIENT;
     if (speed.x >= 0)
         speed.x = floor(speed.x);
     else if (speed.x < 0)
