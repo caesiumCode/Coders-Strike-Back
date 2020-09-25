@@ -1,7 +1,9 @@
 #ifndef Env_hpp
 #define Env_hpp
 
-#include <cmath>
+#define _USE_MATH_DEFINES
+#include <math.h>
+
 #include <SFML/Graphics.hpp>
 
 class RACE {
