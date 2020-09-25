@@ -1,27 +1,27 @@
 #include "Pod.hpp"
 
 Pod::Pod() : Entity() {
-    angle = 90.f;
+    angle = 0.f;
     nextCheckpointId = 1;
 }
 
 Pod::Pod(float posX, float posY, float radius) : Entity(posX, posY, radius) {
-    angle = 90.f;
+    angle = 0.f;
     nextCheckpointId = 1;
 }
 
 Pod::Pod(sf::Vector2f pos, float radius) : Entity(pos, radius) {
-    angle = 90.f;
+    angle = 0.f;
     nextCheckpointId = 1;
 }
 
 Pod::Pod(float posX, float posY, float radius, sf::Color col) : Entity(posX, posY, radius, col) {
-    angle = 90.f;
+    angle = 0.f;
     nextCheckpointId = 1;
 }
 
 Pod::Pod(sf::Vector2f pos, float radius, sf::Color col) : Entity(pos, radius, col) {
-    angle = 90.f;
+    angle = 0.f;
     nextCheckpointId = 1;
 }
 
@@ -41,7 +41,7 @@ Move Pod::nextMove(const std::vector<Checkpoint>& checkpoints) {
     if (norm2(position - checkpoints[nextCheckpointId].position) < CHECKPOINT_RADIUS*CHECKPOINT_RADIUS)
         nextCheckpointId = (nextCheckpointId+1)%checkpoints.size();
     
-    return Move(checkpoints[nextCheckpointId].position, 100);
+    return Move(checkpoints[nextCheckpointId].position, 50);
 }
 
 void Pod::update(Move move) {
@@ -57,7 +57,7 @@ void Pod::update(Move move) {
         angle += angleDifference;
     
     // change position
-    dir = float(move.thrust) * (1.f / norm(dir)) * dir;
+    dir = float(move.thrust) * sf::Vector2f(cos(angle), sin(angle));
     speed += dir;
         
     position += speed;

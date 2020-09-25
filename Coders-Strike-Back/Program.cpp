@@ -14,6 +14,9 @@ Program::Program() {
 void Program::run() {
     RenderRace race;
     
+    sf::Vector2f u = sf::Vector2f(1.f, -1.f);
+    std::cout << absAngle(u) << std::endl;
+    
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {

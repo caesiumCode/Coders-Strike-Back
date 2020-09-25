@@ -13,5 +13,5 @@ sf::Vector2f orthonormal(sf::Vector2f u) {
 }
 
 float absAngle(sf::Vector2f u) {
-    return atan2(u.y, u.x) * 180.f / M_PI;
+    return atan2(u.y, u.x);
 }
