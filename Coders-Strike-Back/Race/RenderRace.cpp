@@ -36,12 +36,12 @@ RenderRace::RenderRace(unsigned int seed) : Race(seed) {
     background.setTexture(&backgroundTexture);
     
     // Pods
-    team1PodShape.setSize(sf::Vector2f(2.f*CP::RADIUS, 2.f*CP::RADIUS));
-    team1PodShape.setOrigin(CP::RADIUS, CP::RADIUS);
+    team1PodShape.setSize(sf::Vector2f(2.f*POD::RADIUS, 2.f*POD::RADIUS));
+    team1PodShape.setOrigin(POD::RADIUS, POD::RADIUS);
     team1PodShape.setTexture(&team1Texture);
     
-    team2PodShape.setSize(sf::Vector2f(2.f*CP::RADIUS, 2.f*CP::RADIUS));
-    team2PodShape.setOrigin(CP::RADIUS, CP::RADIUS);
+    team2PodShape.setSize(sf::Vector2f(2.f*POD::RADIUS, 2.f*POD::RADIUS));
+    team2PodShape.setOrigin(POD::RADIUS, POD::RADIUS);
     team2PodShape.setTexture(&team2Texture);
     
     // Checkpoints
