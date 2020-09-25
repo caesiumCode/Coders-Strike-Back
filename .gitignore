@@ -16,6 +16,7 @@
 /Debug
 /Coders-Strike-Back/Debug
 /.vs
+*.db
 
 # Libraries
 *.dylib
