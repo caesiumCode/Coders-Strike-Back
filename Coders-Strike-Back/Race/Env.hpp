@@ -12,16 +12,14 @@ public:
 
 class POD {
 public:
-    static const int POD_RADIUS = 400;
+    static const int RADIUS = 400;
     static constexpr float ANGLE_LIMIT = 18.f * M_PI / 180.f, FRICTION_COEFFICIENT = 0.85f;
     static const int THRUST_LIMIT = 100, TURN_LIMIT = 100;
-    static const sf::Color TEAM1_COLOR, TEAM2_COLOR;
 };
 
 class CP {
 public:
-    static const int CHECKPOINT_RADIUS = 600;
-    static const sf::Color CHECKPOINT_COLOR;
+    static const int RADIUS = 600;
 };
 
 #endif /* Env_hpp */

@@ -12,14 +12,6 @@ Pod::Pod(sf::Vector2f pos, float radius) : Entity(pos, radius) {
     init();
 }
 
-Pod::Pod(float posX, float posY, float radius, sf::Color col) : Entity(posX, posY, radius, col) {
-    init();
-}
-
-Pod::Pod(sf::Vector2f pos, float radius, sf::Color col) : Entity(pos, radius, col) {
-    init();
-}
-
 void Pod::init() {
     speed = sf::Vector2f(0.f, 0.f);
     angle = 0.f;
@@ -39,7 +31,7 @@ void Pod::update(const std::vector<Checkpoint> & checkpoints) {
 }
 
 Move Pod::nextMove(const std::vector<Checkpoint>& checkpoints) {
-    if (norm2(position - checkpoints[nextCheckpointId].position) < CP::CHECKPOINT_RADIUS*CP::CHECKPOINT_RADIUS)
+    if (norm2(position - checkpoints[nextCheckpointId].position) < CP::RADIUS*CP::RADIUS)
         nextCheckpointId = (nextCheckpointId+1)%checkpoints.size();
     
     return Move(checkpoints[nextCheckpointId].position, 50);

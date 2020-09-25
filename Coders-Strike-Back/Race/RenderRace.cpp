@@ -37,22 +37,24 @@ void RenderRace::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     
     /* - - - Draw checkpoints - - - */
     
+    // Initialise Checkpoint
+    sf::RectangleShape CPShape;
+    CPShape.setSize(sf::Vector2f(2.f*CP::RADIUS, 2.f*CP::RADIUS));
+    CPShape.setOrigin(CP::RADIUS, CP::RADIUS);
+    
     // Initialise numbering
     sf::Text numbering;
     numbering.setFont(font);
     numbering.setFillColor(sf::Color::White);
-    numbering.setCharacterSize(CP::CHECKPOINT_RADIUS*0.7f);
+    numbering.setCharacterSize(CP::RADIUS*0.7f);
     
     for (int i = 0; i < checkpoints.size(); i++) {
         Checkpoint cp = checkpoints[i];
-        // Draw entity
-        sf::RectangleShape entityShape;
-        entityShape.setSize(sf::Vector2f(2.f*cp.radius, 2.f*cp.radius));
-        entityShape.setOrigin(cp.radius, cp.radius);
-        entityShape.setPosition(cp.position.x, cp.position.y);
-        entityShape.setTexture(&CPTexture);
         
-        target.draw(entityShape);
+        // Draw checkpoint
+        CPShape.setPosition(cp.position.x, cp.position.y);
+        CPShape.setTexture(&CPTexture);
+        target.draw(CPShape);
         
         // Draw numbering
         numbering.setString(std::to_string(i));
@@ -64,36 +66,29 @@ void RenderRace::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     }
     
     /* - - - Draw players - - - */
+    sf::RectangleShape PodShape;
+    PodShape.setSize(sf::Vector2f(2.f*POD::RADIUS, 2.f*POD::RADIUS));
+    PodShape.setOrigin(POD::RADIUS, POD::RADIUS);
     
     // Team1
+    PodShape.setTexture(&team1Texture);
     for (int i = 0; i < team1Size; i++) {
         Pod pod = team1[i];
-        sf::RectangleShape entityShape;
+                
+        PodShape.setPosition(pod.position.x, pod.position.y);
+        PodShape.setRotation(pod.angle * 180.f / M_PI + 90.f);
         
-        entityShape.setSize(sf::Vector2f(2.f*pod.radius, 2.f*pod.radius));
-        entityShape.setOrigin(pod.radius, pod.radius);
-        
-        entityShape.setPosition(pod.position.x, pod.position.y);
-        entityShape.setTexture(&team1Texture);
-        
-        entityShape.setRotation(pod.angle * 180.f / M_PI + 90.f);
-        
-        target.draw(entityShape);
+        target.draw(PodShape);
     }
     
     // Team2
+    PodShape.setTexture(&team2Texture);
     for (int i = 0; i < team2Size; i++) {
         Pod pod = team2[i];
-        sf::RectangleShape entityShape;
+                
+        PodShape.setPosition(pod.position.x, pod.position.y);
+        PodShape.setRotation(pod.angle * 180.f / M_PI + 90.f);
         
-        entityShape.setSize(sf::Vector2f(2.f*pod.radius, 2.f*pod.radius));
-        entityShape.setOrigin(pod.radius, pod.radius);
-        
-        entityShape.setPosition(pod.position.x, pod.position.y);
-        entityShape.setTexture(&team2Texture);
-        
-        entityShape.setRotation(pod.angle * 180.f / M_PI + 90.f);
-        
-        target.draw(entityShape);
+        target.draw(PodShape);
     }
 }
