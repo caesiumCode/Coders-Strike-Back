@@ -24,6 +24,9 @@ void Race::reset(unsigned int s) {
     seed = s;
     srand(seed);
     
+    // Initialise id
+    int id = 0;
+    
     /* - - - Initialise race path - - - */
     // laps
     laps = 3;
@@ -45,8 +48,11 @@ void Race::reset(unsigned int s) {
                 collision = true;
         
         // Add the checkpoint if it does not collide any other checkpoint
-        if (!collision)
+        if (!collision) {
+            checkpoint.id = id;
             checkpoints.push_back(checkpoint);
+            id++;
+        }
     }
     
     /* - - - Initialise Players - - - */
@@ -71,6 +77,16 @@ void Race::reset(unsigned int s) {
         team2.push_back(Pod(alignBegin + float(2*i*POD::RADIUS)*alignDir, POD::RADIUS));
     for (int i = team2Size/2 + team1Size; i < nbPlayers; i++)
         team2.push_back(Pod(alignBegin + float(2*i*POD::RADIUS)*alignDir, POD::RADIUS));
+    
+    // Set pod ids
+    for (int i = 0; i < team1Size; i++) {
+        team1[i].id = id;
+        id++;
+    }
+    for (int i = 0; i < team2Size; i++) {
+        team2[i].id = id;
+        id++;
+    }
     
     // Initialise angles
     for (int i = 0; i < team1Size; i++)

@@ -14,3 +14,10 @@ Entity::Entity(sf::Vector2f pos, float r) {
     position = pos;
     radius = r;
 }
+
+
+Collision collide(const Entity& entity1, const Entity& entity2) {
+    Collision collision(entity1.id, entity2.id);
+    
+    return collision;
+}

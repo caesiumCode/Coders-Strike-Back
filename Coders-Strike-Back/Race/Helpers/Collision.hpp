@@ -4,7 +4,7 @@
 class Collision {
 public:
     Collision();
-    Collision(int, int, float);
+    Collision(int, int);
     
     int id1, id2;
     float time;

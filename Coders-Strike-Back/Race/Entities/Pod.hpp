@@ -22,7 +22,6 @@ public:
     
     
     // Physical state
-    sf::Vector2f speed;
     float angle;
     
     // Special move
@@ -41,8 +40,6 @@ private:
     
     Move nextMove(const std::vector<Checkpoint>&);
     void update(Move);
-    
-    
 };
 
 #endif /* Pod_hpp */

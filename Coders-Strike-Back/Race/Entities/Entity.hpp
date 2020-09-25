@@ -2,6 +2,7 @@
 #define Entity_hpp
 
 #include <SFML/Graphics.hpp>
+#include "Collision.hpp"
 
 class Entity {
 public:
@@ -10,7 +11,11 @@ public:
     Entity(sf::Vector2f, float);
     
     sf::Vector2f position;
+    sf::Vector2f speed;
     float radius;
+    int id;
 };
+
+Collision collide(const Entity&, const Entity&);
 
 #endif /* Entity_hpp */
