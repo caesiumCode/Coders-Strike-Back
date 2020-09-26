@@ -8,6 +8,10 @@ float norm2(sf::Vector2f u) {
     return u.x*u.x + u.y*u.y;
 }
 
+float scal(sf::Vector2f u, sf::Vector2f v) {
+    return u.x*v.x + u.y*v.y;
+}
+
 sf::Vector2f orthonormal(sf::Vector2f u) {
     return (1.f / norm(u)) * sf::Vector2f(u.y, -u.x);
 }

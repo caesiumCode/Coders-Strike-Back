@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "Collision.hpp"
+#include "Geometry.hpp"
 
 class Entity {
 public:
