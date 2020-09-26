@@ -22,4 +22,6 @@ public:
 Collision collide(Checkpoint&, Pod&);
 Collision collide(Pod&, Pod&);
 
+void bounce(Collision);
+
 #endif /* Collision_hpp */

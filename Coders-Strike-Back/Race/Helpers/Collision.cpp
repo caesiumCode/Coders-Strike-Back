@@ -69,3 +69,34 @@ Collision collide(Pod& pod1, Pod& pod2) {
     
     return collision;
 }
+
+
+void bounce(Collision col) {
+    // Mass variables
+    float m1 = 1.f, m2 = 1.f;
+    if (col.pods[0]->shield)
+        m1 = 10.f;
+    if (col.pods[1]->shield)
+        m2 = 10.f;
+    
+    float mcoef = (m1 + m2)/(m1 * m2);
+    
+    // Difference between the pods
+    float d2 = 4.f*POD::RADIUS*POD::RADIUS;
+    sf::Vector2f n = col.pods[0]->position - col.pods[1]->position;
+    sf::Vector2f dn = col.pods[0]->speed - col.pods[1]->speed;
+    
+    // Force of the impact
+    float prod = scal(n, dn);
+    sf::Vector2f f = prod/(d2*mcoef) * n;
+    
+    col.pods[0]->speed -= f / m1;
+    col.pods[1]->speed += f / m2;
+    
+    float impulse = norm(f);
+    if (impulse < 120.f)
+        f *= 120.f/impulse;
+    
+    col.pods[0]->speed -= f / m1;
+    col.pods[1]->speed += f / m2;
+}

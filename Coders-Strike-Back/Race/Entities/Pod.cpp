@@ -17,6 +17,7 @@ void Pod::init() {
     angle = 0.f;
     nextCheckpointId = 1;
     timeout = 100;
+    shield = false;
 }
 
 void Pod::initRace(Checkpoint checkpoint) {

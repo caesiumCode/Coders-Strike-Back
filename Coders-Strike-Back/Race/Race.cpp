@@ -60,8 +60,8 @@ void Race::reset(unsigned int s) {
     /* - - - Initialise Players - - - */
     
     // Number of players
-    team1Size = 1;
-    team2Size = 1;
+    team1Size = 5;
+    team2Size = 5;
     int nbPlayers = team1Size+team2Size;
     team1.clear();
     team2.clear();
@@ -167,12 +167,17 @@ void Race::updateTurn() {
     float turn = 0.f;
     Collision collision = nextCollision();
     
-    while (collision.type == 0 && collision.time + turn <= 1.f) {
-        std::cout << std::setw(4) << "CP" << std::setw(6) << "pod" << std::setw(12) << collision.time << std::endl;
+    while (collision.type != -1 && collision.time + turn <= 1.f) {
         movePods(collision.time);
         
-        if (collision.type == 0)
+        if (collision.type == 0) {
+            std::cout << std::setw(4) << "CP" << std::setw(6) << "pod" << std::setw(12) << collision.time << std::endl;
             collision.pods[0]->check(checkpointsSize);
+        }
+        else if (collision.type == 1) {
+            std::cout << std::setw(4) << "pod" << std::setw(6) << "pod" << std::setw(12) << collision.time << std::endl;
+            bounce(collision);
+        }
         
         turn += collision.time;
         collision = nextCollision();

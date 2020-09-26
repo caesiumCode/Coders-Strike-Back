@@ -31,7 +31,7 @@ public:
     
     // Special move
     int shieldCooldown;
-    bool boost;
+    bool boost, shield;
     
     // Race state
     int nextCheckpointId;
