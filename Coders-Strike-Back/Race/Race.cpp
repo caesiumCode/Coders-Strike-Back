@@ -24,6 +24,9 @@ void Race::reset(unsigned int s) {
     seed = s;
     srand(seed);
     
+    std::cout << "- - - - - - - - RESET - - - - - - - -" << std::endl;
+    std::cout << "seed " << seed << std::endl;
+    
     // Initialise id
     int id = 0;
     
@@ -58,25 +61,26 @@ void Race::reset(unsigned int s) {
     /* - - - Initialise Players - - - */
     
     // Number of players
-    team1Size = 1;
-    team2Size = 1;
+    team1Size = 3;
+    team2Size = 3;
     int nbPlayers = team1Size+team2Size;
     team1.clear();
     team2.clear();
     
     // Initialise the alignement line
+    int margin = 100, gap = 2*(POD::RADIUS+margin);
     sf::Vector2f alignDir = orthonormal(checkpoints[1].position - checkpoints[0].position);
-    sf::Vector2f alignBegin = checkpoints[0].position - float(nbPlayers - 1)*POD::RADIUS*alignDir;
+    sf::Vector2f alignBegin = checkpoints[0].position - float(nbPlayers - 1)*(POD::RADIUS+margin)*alignDir;
     
     // Team1
     for (int i = team2Size/2; i < team2Size/2 + team1Size; i++)
-        team1.push_back(Pod(alignBegin + float(2*i*POD::RADIUS)*alignDir, POD::RADIUS));
+        team1.push_back(Pod(alignBegin + float(i*gap)*alignDir, POD::RADIUS));
     
     // Team2
     for (int i = 0; i < team2Size/2; i++)
-        team2.push_back(Pod(alignBegin + float(2*i*POD::RADIUS)*alignDir, POD::RADIUS));
+        team2.push_back(Pod(alignBegin + float(i*gap)*alignDir, POD::RADIUS));
     for (int i = team2Size/2 + team1Size; i < nbPlayers; i++)
-        team2.push_back(Pod(alignBegin + float(2*i*POD::RADIUS)*alignDir, POD::RADIUS));
+        team2.push_back(Pod(alignBegin + float(i*gap)*alignDir, POD::RADIUS));
     
     // Set pod ids
     for (int i = 0; i < team1Size; i++) {
@@ -102,28 +106,53 @@ void Race::reset(unsigned int s) {
 void Race::update() {
     std::vector<Collision> collisions;
     
+    // team1 team1 collisions
+    for (int i = 0; i < team1Size; i++) {
+        for (int j = i+1; j < team1Size; j++) {
+            Collision col = collide(team1[i], team1[j]);
+            if (col.time >= 0.f && col.time <= 1.f) {
+                collisions.push_back(col);
+                std::cout << std::setw(4) << "pod1" << std::setw(6) << "pod1" << std::setw(12) << col.time << std::endl;
+            }
+        }
+    }
+    
+    // team2 team2 collisions
+    for (int i = 0; i < team2Size; i++) {
+        for (int j = i+1; j < team2Size; j++) {
+            Collision col = collide(team2[i], team2[j]);
+            if (col.time >= 0.f && col.time <= 1.f) {
+                collisions.push_back(col);
+                std::cout << std::setw(4) << "pod2" << std::setw(6) << "pod2" << std::setw(12) << col.time << std::endl;
+            }
+        }
+    }
+    
+    // team1 team2 collisions
     for (int i = 0; i < team1Size; i++) {
         for (int j = 0; j < team2Size; j++) {
             Collision col = collide(team1[i], team2[j]);
             if (col.time >= 0.f && col.time <= 1.f) {
                 collisions.push_back(col);
-                std::cout << "pod1 pod2 " << col.time << std::endl;
+                std::cout << std::setw(4) << "pod1" << std::setw(6) << "pod2" << std::setw(12) << col.time << std::endl;
             }
         }
     }
+    
+    // CP team1/team2 collisions
     for (int i = 0; i < checkpointsSize; i++) {
         for (int j = 0; j < team1Size; j++) {
             Collision col = collide(checkpoints[i], team1[j]);
             if (col.time >= 0.f && col.time <= 1.f) {
                 collisions.push_back(col);
-                std::cout << "CP pod1 " << col.time << std::endl;
+                std::cout << std::setw(4) << "CP" << std::setw(6) << "pod1" << std::setw(12) << col.time << std::endl;
             }
         }
         for (int j = 0; j < team2Size; j++) {
             Collision col = collide(checkpoints[i], team2[j]);
             if (col.time >= 0.f && col.time <= 1.f) {
                 collisions.push_back(col);
-                std::cout << "CP pod2 " << col.time << std::endl;
+                std::cout << std::setw(4) << "CP" << std::setw(6) << "pod2" << std::setw(12) << col.time << std::endl;
             }
         }
     }
