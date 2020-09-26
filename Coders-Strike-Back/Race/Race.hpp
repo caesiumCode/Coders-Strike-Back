@@ -11,6 +11,7 @@
 #include "Pod.hpp"
 #include "Geometry.hpp"
 #include "ResourceFile.hpp"
+#include "Collision.hpp"
 
 #include "Env.hpp"
 
@@ -37,7 +38,8 @@ public:
 private:
     unsigned int seed;
     
-    void update(float);
+    void updateTurn();
+    Collision nextCollision();
 };
 
 #endif /* Race_hpp */

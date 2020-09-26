@@ -27,9 +27,6 @@ void Race::reset(unsigned int s) {
     std::cout << "- - - - - - - - RESET - - - - - - - -" << std::endl;
     std::cout << "seed " << seed << std::endl;
     
-    // Initialise id
-    int id = 0;
-    
     /* - - - Initialise race path - - - */
     // laps
     laps = 3;
@@ -51,11 +48,8 @@ void Race::reset(unsigned int s) {
                 collision = true;
         
         // Add the checkpoint if it does not collide any other checkpoint
-        if (!collision) {
-            checkpoint.id = id;
+        if (!collision)
             checkpoints.push_back(checkpoint);
-            id++;
-        }
     }
     
     /* - - - Initialise Players - - - */
@@ -82,16 +76,6 @@ void Race::reset(unsigned int s) {
     for (int i = team2Size/2 + team1Size; i < nbPlayers; i++)
         team2.push_back(Pod(round(alignBegin + float(i*gap)*alignDir), POD::RADIUS));
     
-    // Set pod ids
-    for (int i = 0; i < team1Size; i++) {
-        team1[i].id = id;
-        id++;
-    }
-    for (int i = 0; i < team2Size; i++) {
-        team2[i].id = id;
-        id++;
-    }
-    
     // Initialise angles
     for (int i = 0; i < team1Size; i++)
         team1[i].initRace(checkpoints[1]);
@@ -103,16 +87,21 @@ void Race::reset(unsigned int s) {
     turnsDone = 0;
 }
 
-void Race::update() {
+Collision Race::nextCollision() {
     std::vector<Collision> collisions;
+    
+    Collision nextCol;
+    nextCol.time = -1.f;
     
     // team1 team1 collisions
     for (int i = 0; i < team1Size; i++) {
         for (int j = i+1; j < team1Size; j++) {
             Collision col = collide(team1[i], team1[j]);
             if (col.time >= 0.f && col.time <= 1.f) {
+                if (col.time < nextCol.time)
+                    nextCol = col;
                 collisions.push_back(col);
-                std::cout << std::setw(4) << "pod1" << std::setw(6) << "pod1" << std::setw(12) << col.time << std::endl;
+                //std::cout << std::setw(4) << "pod1" << std::setw(6) << "pod1" << std::setw(12) << col.time << std::endl;
             }
         }
     }
@@ -122,8 +111,10 @@ void Race::update() {
         for (int j = i+1; j < team2Size; j++) {
             Collision col = collide(team2[i], team2[j]);
             if (col.time >= 0.f && col.time <= 1.f) {
+                if (col.time < nextCol.time)
+                    nextCol = col;
                 collisions.push_back(col);
-                std::cout << std::setw(4) << "pod2" << std::setw(6) << "pod2" << std::setw(12) << col.time << std::endl;
+                //std::cout << std::setw(4) << "pod2" << std::setw(6) << "pod2" << std::setw(12) << col.time << std::endl;
             }
         }
     }
@@ -133,8 +124,10 @@ void Race::update() {
         for (int j = 0; j < team2Size; j++) {
             Collision col = collide(team1[i], team2[j]);
             if (col.time >= 0.f && col.time <= 1.f) {
+                if (col.time < nextCol.time)
+                    nextCol = col;
                 collisions.push_back(col);
-                std::cout << std::setw(4) << "pod1" << std::setw(6) << "pod2" << std::setw(12) << col.time << std::endl;
+                //std::cout << std::setw(4) << "pod1" << std::setw(6) << "pod2" << std::setw(12) << col.time << std::endl;
             }
         }
     }
@@ -144,27 +137,51 @@ void Race::update() {
         for (int j = 0; j < team1Size; j++) {
             Collision col = collide(checkpoints[i], team1[j]);
             if (col.time >= 0.f && col.time <= 1.f) {
+                if (col.time < nextCol.time)
+                    nextCol = col;
                 collisions.push_back(col);
-                std::cout << std::setw(4) << "CP" << std::setw(6) << "pod1" << std::setw(12) << col.time << std::endl;
+                //std::cout << std::setw(4) << "CP" << std::setw(6) << "pod1" << std::setw(12) << col.time << std::endl;
             }
         }
         for (int j = 0; j < team2Size; j++) {
             Collision col = collide(checkpoints[i], team2[j]);
             if (col.time >= 0.f && col.time <= 1.f) {
+                if (col.time < nextCol.time)
+                    nextCol = col;
                 collisions.push_back(col);
-                std::cout << std::setw(4) << "CP" << std::setw(6) << "pod2" << std::setw(12) << col.time << std::endl;
+                //std::cout << std::setw(4) << "CP" << std::setw(6) << "pod2" << std::setw(12) << col.time << std::endl;
             }
         }
     }
     
-    update(1.f);
+    return nextCol;
 }
 
-void Race::update(float t) {
+void Race::update() {
+    // startTurn
     for (int i = 0; i < team1Size; i++)
-        team1[i].update(t, checkpoints);
+        team1[i].startTurn(checkpoints);
     for (int i = 0; i < team2Size; i++)
-        team2[i].update(t, checkpoints);
+        team2[i].startTurn(checkpoints);
+    
+    updateTurn();
+    
+    // endTurn
+    for (int i = 0; i < team1Size; i++)
+        team1[i].endTurn();
+    for (int i = 0; i < team2Size; i++)
+        team2[i].endTurn();
+}
+
+void Race::updateTurn() {
+    Collision collision = nextCollision();
+    
+    for (int i = 0; i < team1Size; i++) {
+        team1[i].partialTurn(1.f);
+    }
+    for (int i = 0; i < team2Size; i++) {
+        team2[i].partialTurn(1.f);
+    }
 }
 
 /* - - - Helper Functions - - - */

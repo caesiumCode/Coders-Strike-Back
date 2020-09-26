@@ -1,13 +1,18 @@
 #ifndef Collision_hpp
 #define Collision_hpp
 
+#include "Entity.hpp"
+
 class Collision {
 public:
     Collision();
-    Collision(int, int);
+    Collision(Entity*, Entity*);
     
-    int id1, id2;
+    Entity * e1;
+    Entity * e2;
     float time;
 };
+
+Collision collide(Entity&, Entity&);
 
 #endif /* Collision_hpp */

@@ -25,11 +25,6 @@ void Pod::initRace(Checkpoint checkpoint) {
 }
 
 
-void Pod::update(float t, const std::vector<Checkpoint> & checkpoints) {
-    Move move = nextMove(checkpoints);
-    update(t, move);
-}
-
 Move Pod::nextMove(const std::vector<Checkpoint>& checkpoints) {
     if (norm2(position - checkpoints[nextCheckpointId].position) < CP::RADIUS*CP::RADIUS)
         nextCheckpointId = (nextCheckpointId+1)%checkpoints.size();
@@ -37,8 +32,10 @@ Move Pod::nextMove(const std::vector<Checkpoint>& checkpoints) {
     return Move(checkpoints[nextCheckpointId].position, 50);
 }
 
-void Pod::update(float t, Move move) {
-    // change angle
+void Pod::startTurn(const std::vector<Checkpoint> & checkpoints) {
+    Move move = nextMove(checkpoints);
+    
+    // update angle
     sf::Vector2f dir = move.target - position;
     
     float angleDifference = absAngle(dir) - angle;
@@ -53,14 +50,20 @@ void Pod::update(float t, Move move) {
     
     reduceAngle(angle);
     
-    // change position
+    // update speed
     dir = float(move.thrust) * sf::Vector2f(cos(angle), sin(angle));
     speed += dir;
-        
-    position += speed;
+}
+
+void Pod::partialTurn(float t) {
+    position += t*speed;
+}
+
+void Pod::endTurn() {
+    // Round position
     position = round(position);
     
-    // apply friction
+    // Apply friction
     speed *= POD::FRICTION_COEFFICIENT;
     if (speed.x >= 0)
         speed.x = floor(speed.x);

@@ -18,7 +18,9 @@ public:
     
     void initRace(Checkpoint);
     
-    void update(float t, const std::vector<Checkpoint>&);
+    void startTurn(const std::vector<Checkpoint>&);
+    void partialTurn(float);
+    void endTurn();
     
     
     // Physical state
@@ -39,7 +41,6 @@ private:
     // NeuralNet brain;
     
     Move nextMove(const std::vector<Checkpoint>&);
-    void update(float, Move);
 };
 
 #endif /* Pod_hpp */
