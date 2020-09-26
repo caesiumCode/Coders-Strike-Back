@@ -17,7 +17,10 @@ sf::Vector2f orthonormal(sf::Vector2f u) {
 }
 
 float absAngle(sf::Vector2f u) {
-    return atan2(u.y, u.x);
+    if (u.x == 0.f && u.y == 0.f)
+        return 0.f;
+    else
+        return atan2(u.y, u.x);
 }
 
 void reduceAngle(float& a) {

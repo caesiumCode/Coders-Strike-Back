@@ -33,9 +33,9 @@ void Race::reset(unsigned int s) {
     
     // checkpoints
     checkpoints.clear();
-    int N = rand(RACE::CHECKPOINT_MIN, RACE::CHECKPOINT_MAX);
+    checkpointsSize = rand(RACE::CHECKPOINT_MIN, RACE::CHECKPOINT_MAX);
     
-    while (checkpoints.size() < N) {
+    while (checkpoints.size() < checkpointsSize) {
         // Generate a checkpoint
         Checkpoint checkpoint(rand(CP::RADIUS, RACE::WIDTH - CP::RADIUS),
                               rand(CP::RADIUS, RACE::HEIGHT - CP::RADIUS),
@@ -100,10 +100,42 @@ void Race::reset(unsigned int s) {
 }
 
 void Race::update() {
+    std::vector<Collision> collisions;
+    
+    for (int i = 0; i < team1Size; i++) {
+        for (int j = 0; j < team2Size; j++) {
+            Collision col = collide(team1[i], team2[j]);
+            if (col.time >= 0.f && col.time <= 1.f) {
+                collisions.push_back(col);
+                std::cout << "pod1 pod2 " << col.time << std::endl;
+            }
+        }
+    }
+    for (int i = 0; i < checkpointsSize; i++) {
+        for (int j = 0; j < team1Size; j++) {
+            Collision col = collide(checkpoints[i], team1[j]);
+            if (col.time >= 0.f && col.time <= 1.f) {
+                collisions.push_back(col);
+                std::cout << "CP pod1 " << col.time << std::endl;
+            }
+        }
+        for (int j = 0; j < team2Size; j++) {
+            Collision col = collide(checkpoints[i], team2[j]);
+            if (col.time >= 0.f && col.time <= 1.f) {
+                collisions.push_back(col);
+                std::cout << "CP pod2 " << col.time << std::endl;
+            }
+        }
+    }
+    
+    update(1.f);
+}
+
+void Race::update(float t) {
     for (int i = 0; i < team1Size; i++)
-        team1[i].update(checkpoints);
+        team1[i].update(t, checkpoints);
     for (int i = 0; i < team2Size; i++)
-        team2[i].update(checkpoints);
+        team2[i].update(t, checkpoints);
 }
 
 /* - - - Helper Functions - - - */

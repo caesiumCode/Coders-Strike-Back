@@ -4,6 +4,7 @@
 #include <vector>
 #include <cstdlib>
 #include <ctime>
+#include <iostream>
 
 #include "Checkpoint.hpp"
 #include "Pod.hpp"
@@ -26,7 +27,7 @@ public:
     int team1Size, team2Size;
     
     // Race path
-    int laps;
+    int laps, checkpointsSize;
     std::vector<Checkpoint> checkpoints;
     
     // Current race state
@@ -34,6 +35,8 @@ public:
     
 private:
     unsigned int seed;
+    
+    void update(float);
 };
 
 #endif /* Race_hpp */

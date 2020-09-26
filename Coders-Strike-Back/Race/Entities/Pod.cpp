@@ -25,9 +25,9 @@ void Pod::initRace(Checkpoint checkpoint) {
 }
 
 
-void Pod::update(const std::vector<Checkpoint> & checkpoints) {
+void Pod::update(float t, const std::vector<Checkpoint> & checkpoints) {
     Move move = nextMove(checkpoints);
-    update(move);
+    update(t, move);
 }
 
 Move Pod::nextMove(const std::vector<Checkpoint>& checkpoints) {
@@ -37,7 +37,7 @@ Move Pod::nextMove(const std::vector<Checkpoint>& checkpoints) {
     return Move(checkpoints[nextCheckpointId].position, 50);
 }
 
-void Pod::update(Move move) {
+void Pod::update(float t, Move move) {
     // change angle
     sf::Vector2f dir = move.target - position;
     
