@@ -168,7 +168,7 @@ void Race::updateTurn() {
     Collision collision = nextCollision();
     
     while (collision.type == 0 && collision.time + turn <= 1.f) {
-        std::cout << std::setw(4) << "CP" << std::setw(6) << "pod2" << std::setw(12) << collision.time << std::endl;
+        std::cout << std::setw(4) << "CP" << std::setw(6) << "pod" << std::setw(12) << collision.time << std::endl;
         movePods(collision.time);
         
         if (collision.type == 0)
@@ -182,12 +182,10 @@ void Race::updateTurn() {
 }
 
 void Race::movePods(float t) {
-    for (int i = 0; i < team1Size; i++) {
+    for (int i = 0; i < team1Size; i++)
         team1[i].partialTurn(t);
-    }
-    for (int i = 0; i < team2Size; i++) {
+    for (int i = 0; i < team2Size; i++)
         team2[i].partialTurn(t);
-    }
 }
 
 /* - - - Helper Functions - - - */
