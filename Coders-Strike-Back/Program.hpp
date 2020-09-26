@@ -14,6 +14,8 @@ public:
     Program();
     void run();
     
+    bool play;
+    
 private:
     sf::RenderWindow window;
     
