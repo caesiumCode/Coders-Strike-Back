@@ -58,8 +58,7 @@ void Pod::update(float t, Move move) {
     speed += dir;
         
     position += speed;
-    position.x = round(position.x);
-    position.y = round(position.y);
+    position = round(position);
     
     // apply friction
     speed *= POD::FRICTION_COEFFICIENT;

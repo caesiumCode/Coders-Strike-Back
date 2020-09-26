@@ -29,3 +29,7 @@ void reduceAngle(float& a) {
     else if (a < -M_PI)
         a = a + 2.f*M_PI;
 }
+
+sf::Vector2f round(sf::Vector2f u) {
+    return sf::Vector2f(round(u.x), round(u.y));
+}

@@ -61,8 +61,8 @@ void Race::reset(unsigned int s) {
     /* - - - Initialise Players - - - */
     
     // Number of players
-    team1Size = 3;
-    team2Size = 3;
+    team1Size = 1;
+    team2Size = 1;
     int nbPlayers = team1Size+team2Size;
     team1.clear();
     team2.clear();
@@ -74,13 +74,13 @@ void Race::reset(unsigned int s) {
     
     // Team1
     for (int i = team2Size/2; i < team2Size/2 + team1Size; i++)
-        team1.push_back(Pod(alignBegin + float(i*gap)*alignDir, POD::RADIUS));
+        team1.push_back(Pod(round(alignBegin + float(i*gap)*alignDir), POD::RADIUS));
     
     // Team2
     for (int i = 0; i < team2Size/2; i++)
-        team2.push_back(Pod(alignBegin + float(i*gap)*alignDir, POD::RADIUS));
+        team2.push_back(Pod(round(alignBegin + float(i*gap)*alignDir), POD::RADIUS));
     for (int i = team2Size/2 + team1Size; i < nbPlayers; i++)
-        team2.push_back(Pod(alignBegin + float(i*gap)*alignDir, POD::RADIUS));
+        team2.push_back(Pod(round(alignBegin + float(i*gap)*alignDir), POD::RADIUS));
     
     // Set pod ids
     for (int i = 0; i < team1Size; i++) {
