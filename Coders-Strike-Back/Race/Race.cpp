@@ -1,5 +1,10 @@
 #include "Race.hpp"
 
+template<typename Base, typename T>
+inline bool instanceof(const T*) {
+   return std::is_base_of<Base, T>::value;
+}
+
 /* - - - Helper functions - - - */
 int rand(int min, int max);
 
@@ -88,10 +93,9 @@ void Race::reset(unsigned int s) {
 }
 
 Collision Race::nextCollision() {
-    std::vector<Collision> collisions;
-    
     Collision nextCol;
-    nextCol.time = -1.f;
+    nextCol.time = 2.f;
+    nextCol.type = -1;
     
     // team1 team1 collisions
     for (int i = 0; i < team1Size; i++) {
@@ -100,8 +104,7 @@ Collision Race::nextCollision() {
             if (col.time >= 0.f && col.time <= 1.f) {
                 if (col.time < nextCol.time)
                     nextCol = col;
-                collisions.push_back(col);
-                //std::cout << std::setw(4) << "pod1" << std::setw(6) << "pod1" << std::setw(12) << col.time << std::endl;
+                std::cout << std::setw(4) << "pod1" << std::setw(6) << "pod1" << std::setw(12) << col.time << std::endl;
             }
         }
     }
@@ -113,8 +116,7 @@ Collision Race::nextCollision() {
             if (col.time >= 0.f && col.time <= 1.f) {
                 if (col.time < nextCol.time)
                     nextCol = col;
-                collisions.push_back(col);
-                //std::cout << std::setw(4) << "pod2" << std::setw(6) << "pod2" << std::setw(12) << col.time << std::endl;
+                std::cout << std::setw(4) << "pod2" << std::setw(6) << "pod2" << std::setw(12) << col.time << std::endl;
             }
         }
     }
@@ -126,31 +128,28 @@ Collision Race::nextCollision() {
             if (col.time >= 0.f && col.time <= 1.f) {
                 if (col.time < nextCol.time)
                     nextCol = col;
-                collisions.push_back(col);
-                //std::cout << std::setw(4) << "pod1" << std::setw(6) << "pod2" << std::setw(12) << col.time << std::endl;
+                std::cout << std::setw(4) << "pod1" << std::setw(6) << "pod2" << std::setw(12) << col.time << std::endl;
             }
         }
     }
     
-    // CP team1/team2 collisions
-    for (int i = 0; i < checkpointsSize; i++) {
-        for (int j = 0; j < team1Size; j++) {
-            Collision col = collide(checkpoints[i], team1[j]);
-            if (col.time >= 0.f && col.time <= 1.f) {
-                if (col.time < nextCol.time)
-                    nextCol = col;
-                collisions.push_back(col);
-                //std::cout << std::setw(4) << "CP" << std::setw(6) << "pod1" << std::setw(12) << col.time << std::endl;
-            }
+    // CP team1 collisions
+    for (int i = 0; i < team1Size; i++) {
+        Collision col = collide(checkpoints[team1[i].nextCheckpointId], team1[i]);
+        if (col.time >= 0.f && col.time <= 1.f) {
+            if (col.time < nextCol.time)
+                nextCol = col;
+            std::cout << std::setw(4) << "CP" << std::setw(6) << "pod1" << std::setw(12) << col.time << std::endl;
         }
-        for (int j = 0; j < team2Size; j++) {
-            Collision col = collide(checkpoints[i], team2[j]);
-            if (col.time >= 0.f && col.time <= 1.f) {
-                if (col.time < nextCol.time)
-                    nextCol = col;
-                collisions.push_back(col);
-                //std::cout << std::setw(4) << "CP" << std::setw(6) << "pod2" << std::setw(12) << col.time << std::endl;
-            }
+    }
+    
+    // CP team2 collisions
+    for (int i = 0; i < team2Size; i++) {
+        Collision col = collide(checkpoints[team2[i].nextCheckpointId], team2[i]);
+        if (col.time >= 0.f && col.time <= 1.f) {
+            if (col.time < nextCol.time)
+                nextCol = col;
+            std::cout << std::setw(4) << "CP" << std::setw(6) << "pod2" << std::setw(12) << col.time << std::endl;
         }
     }
     
@@ -174,13 +173,28 @@ void Race::update() {
 }
 
 void Race::updateTurn() {
+    float turn = 0.f;
     Collision collision = nextCollision();
     
+    while (collision.time + turn <= 1.f && collision.type == 0) {
+        movePods(collision.time);
+        
+        if (collision.type == 0)
+            collision.pods[0]->check(checkpointsSize);
+        
+        turn += collision.time;
+        collision = nextCollision();
+    }
+    
+    movePods(1.f - turn);
+}
+
+void Race::movePods(float t) {
     for (int i = 0; i < team1Size; i++) {
-        team1[i].partialTurn(1.f);
+        team1[i].partialTurn(t);
     }
     for (int i = 0; i < team2Size; i++) {
-        team2[i].partialTurn(1.f);
+        team2[i].partialTurn(t);
     }
 }
 

@@ -16,6 +16,7 @@ void Pod::init() {
     speed = sf::Vector2f(0.f, 0.f);
     angle = 0.f;
     nextCheckpointId = 1;
+    timeout = 100;
 }
 
 void Pod::initRace(Checkpoint checkpoint) {
@@ -24,11 +25,12 @@ void Pod::initRace(Checkpoint checkpoint) {
     angle = absAngle(dir);
 }
 
+void Pod::check(int checkpointsSize) {
+    timeout = 100;
+    nextCheckpointId = (nextCheckpointId+1)%checkpointsSize;
+}
 
 Move Pod::nextMove(const std::vector<Checkpoint>& checkpoints) {
-    if (norm2(position - checkpoints[nextCheckpointId].position) < CP::RADIUS*CP::RADIUS)
-        nextCheckpointId = (nextCheckpointId+1)%checkpoints.size();
-    
     return Move(checkpoints[nextCheckpointId].position, 50);
 }
 
@@ -75,3 +77,4 @@ void Pod::endTurn() {
     else if (speed.y < 0)
         speed.y = ceil(speed.y);
 }
+

@@ -18,6 +18,8 @@ public:
     
     void initRace(Checkpoint);
     
+    void check(int);
+    
     void startTurn(const std::vector<Checkpoint>&);
     void partialTurn(float);
     void endTurn();
@@ -25,6 +27,7 @@ public:
     
     // Physical state
     float angle;
+    sf::Vector2f speed;
     
     // Special move
     int shieldCooldown;

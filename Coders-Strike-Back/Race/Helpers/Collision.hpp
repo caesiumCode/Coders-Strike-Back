@@ -1,18 +1,25 @@
 #ifndef Collision_hpp
 #define Collision_hpp
 
-#include "Entity.hpp"
+#include <vector>
+
+#include "Pod.hpp"
+#include "Checkpoint.hpp"
 
 class Collision {
 public:
     Collision();
-    Collision(Entity*, Entity*);
+    Collision(Checkpoint*, Pod*);
+    Collision(Pod*, Pod*);
     
-    Entity * e1;
-    Entity * e2;
+    int type;
+    
+    Checkpoint * cp;
+    std::vector<Pod*> pods;
     float time;
 };
 
-Collision collide(Entity&, Entity&);
+Collision collide(Checkpoint&, Pod&);
+Collision collide(Pod&, Pod&);
 
 #endif /* Collision_hpp */

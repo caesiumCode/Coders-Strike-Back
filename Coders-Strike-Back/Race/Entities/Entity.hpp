@@ -11,7 +11,6 @@ public:
     Entity(sf::Vector2f, float);
     
     sf::Vector2f position;
-    sf::Vector2f speed;
     float radius;
 };
 

@@ -39,6 +39,7 @@ private:
     unsigned int seed;
     
     void updateTurn();
+    void movePods(float);
     Collision nextCollision();
 };
 
