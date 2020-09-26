@@ -104,8 +104,14 @@ Collision Race::nextCollision() {
             if (col.time >= 0.f && col.time <= 1.f) {
                 if (col.time < nextCol.time)
                     nextCol = col;
-                std::cout << std::setw(4) << "pod1" << std::setw(6) << "pod1" << std::setw(12) << col.time << std::endl;
             }
+        }
+        
+        // CP team1 collisions
+        Collision col = collide(checkpoints[team1[i].nextCheckpointId], team1[i]);
+        if (col.time >= 0.f && col.time <= 1.f) {
+            if (col.time < nextCol.time)
+                nextCol = col;
         }
     }
     
@@ -116,8 +122,14 @@ Collision Race::nextCollision() {
             if (col.time >= 0.f && col.time <= 1.f) {
                 if (col.time < nextCol.time)
                     nextCol = col;
-                std::cout << std::setw(4) << "pod2" << std::setw(6) << "pod2" << std::setw(12) << col.time << std::endl;
             }
+        }
+        
+        // CP team2 collisions
+        Collision col = collide(checkpoints[team2[i].nextCheckpointId], team2[i]);
+        if (col.time >= 0.f && col.time <= 1.f) {
+            if (col.time < nextCol.time)
+                nextCol = col;
         }
     }
     
@@ -128,28 +140,7 @@ Collision Race::nextCollision() {
             if (col.time >= 0.f && col.time <= 1.f) {
                 if (col.time < nextCol.time)
                     nextCol = col;
-                std::cout << std::setw(4) << "pod1" << std::setw(6) << "pod2" << std::setw(12) << col.time << std::endl;
             }
-        }
-    }
-    
-    // CP team1 collisions
-    for (int i = 0; i < team1Size; i++) {
-        Collision col = collide(checkpoints[team1[i].nextCheckpointId], team1[i]);
-        if (col.time >= 0.f && col.time <= 1.f) {
-            if (col.time < nextCol.time)
-                nextCol = col;
-            std::cout << std::setw(4) << "CP" << std::setw(6) << "pod1" << std::setw(12) << col.time << std::endl;
-        }
-    }
-    
-    // CP team2 collisions
-    for (int i = 0; i < team2Size; i++) {
-        Collision col = collide(checkpoints[team2[i].nextCheckpointId], team2[i]);
-        if (col.time >= 0.f && col.time <= 1.f) {
-            if (col.time < nextCol.time)
-                nextCol = col;
-            std::cout << std::setw(4) << "CP" << std::setw(6) << "pod2" << std::setw(12) << col.time << std::endl;
         }
     }
     
@@ -176,7 +167,8 @@ void Race::updateTurn() {
     float turn = 0.f;
     Collision collision = nextCollision();
     
-    while (collision.time + turn <= 1.f && collision.type == 0) {
+    while (collision.type == 0 && collision.time + turn <= 1.f) {
+        std::cout << std::setw(4) << "CP" << std::setw(6) << "pod2" << std::setw(12) << collision.time << std::endl;
         movePods(collision.time);
         
         if (collision.type == 0)
