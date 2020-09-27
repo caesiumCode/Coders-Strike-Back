@@ -132,3 +132,13 @@ void RenderRace::renderReset() {
     team1_bu = team1;
     team2_bu = team2;
 }
+
+void RenderRace::renderReset(unsigned int s) {
+    frame = -1;
+    
+    reset(s);
+    
+    checkpoints_bu = checkpoints;
+    team1_bu = team1;
+    team2_bu = team2;
+}

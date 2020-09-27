@@ -12,6 +12,10 @@ public:
     
     void renderUpdate();
     void renderReset();
+    void renderReset(unsigned int);
+    
+    // Render method
+    void render(sf::RenderWindow&);
     
     // Resources
     sf::Font font;
@@ -20,9 +24,6 @@ public:
     // Shapes
     sf::RectangleShape background, CPShape, team1PodShape, team2PodShape;
     sf::Text numbering;
-    
-    // Render method
-    void render(sf::RenderWindow&);
     
 private:
     // Backup

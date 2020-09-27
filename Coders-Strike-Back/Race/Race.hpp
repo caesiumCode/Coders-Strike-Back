@@ -35,9 +35,10 @@ public:
     // Current race state
     int lapsDone, turnsDone;
     
-private:
+    // seed
     unsigned int seed;
     
+private:
     void updateTurn();
     void movePods(float);
     Collision nextCollision();
