@@ -10,6 +10,8 @@ public:
     RenderRace();
     RenderRace(unsigned int);
     
+    void renderUpdate();
+    
     // Resources
     sf::Font font;
     sf::Texture team1Texture, team2Texture, CPTexture, backgroundTexture;
@@ -20,6 +22,14 @@ public:
     
     // Render method
     void render(sf::RenderWindow&);
+    
+private:
+    // Backup
+    std::vector<Pod> team1_bu, team2_bu;
+    std::vector<Checkpoint> checkpoints_bu;
+    
+    // Frame
+    int frame, framePerTurn;
 };
 
 #endif /* RenderRace_hpp */

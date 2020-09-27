@@ -23,11 +23,13 @@ float absAngle(sf::Vector2f u) {
         return atan2(u.y, u.x);
 }
 
-void reduceAngle(float& a) {
+float reduceAngle(float a) {
     if (a > M_PI)
-        a = a - 2.f*M_PI;
+        return a - 2.f*M_PI;
     else if (a < -M_PI)
-        a = a + 2.f*M_PI;
+        return a + 2.f*M_PI;
+    else
+        return a;
 }
 
 sf::Vector2f round(sf::Vector2f u) {

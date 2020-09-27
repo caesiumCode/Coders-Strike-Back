@@ -35,7 +35,7 @@ void Program::run() {
                 
                 if (event.key.code == sf::Keyboard::N)
                     if (not play)
-                        race.update();
+                        race.renderUpdate();
             }
         }
         
@@ -46,6 +46,6 @@ void Program::run() {
         
         // Update
         if (play)
-            race.update();
+            race.renderUpdate();
     }
 }

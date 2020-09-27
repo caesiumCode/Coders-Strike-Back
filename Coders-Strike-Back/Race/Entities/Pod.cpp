@@ -42,7 +42,7 @@ void Pod::startTurn(const std::vector<Checkpoint> & checkpoints) {
     sf::Vector2f dir = move.target - position;
     
     float angleDifference = absAngle(dir) - angle;
-    reduceAngle(angleDifference);
+    angleDifference = reduceAngle(angleDifference);
     
     if (angleDifference > POD::ANGLE_LIMIT)
         angle += POD::ANGLE_LIMIT;
@@ -51,7 +51,7 @@ void Pod::startTurn(const std::vector<Checkpoint> & checkpoints) {
     else
         angle += angleDifference;
     
-    reduceAngle(angle);
+    angle = reduceAngle(angle);
     
     // update speed
     dir = float(move.thrust) * sf::Vector2f(cos(angle), sin(angle));

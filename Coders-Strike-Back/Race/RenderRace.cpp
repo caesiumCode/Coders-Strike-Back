@@ -1,7 +1,8 @@
 #include "RenderRace.hpp"
 
 RenderRace::RenderRace() : RenderRace((int)time(nullptr)) {
-    
+    framePerTurn = 5;
+    frame = -1;
 }
 
 RenderRace::RenderRace(unsigned int seed) : Race(seed) {
@@ -52,6 +53,12 @@ RenderRace::RenderRace(unsigned int seed) : Race(seed) {
     CPShape.setSize(sf::Vector2f(2.f*CP::RADIUS, 2.f*CP::RADIUS));
     CPShape.setOrigin(CP::RADIUS, CP::RADIUS);
     CPShape.setTexture(&CPTexture);
+    
+    /* - - - Initialise Backup - - - */
+    
+    checkpoints_bu = checkpoints;
+    team1_bu = team1;
+    team2_bu = team2;
 }
 
 void RenderRace::render(sf::RenderWindow& window) {
@@ -63,7 +70,7 @@ void RenderRace::render(sf::RenderWindow& window) {
         Checkpoint cp = checkpoints[i];
         
         // Draw checkpoint
-        CPShape.setPosition(cp.position.x, cp.position.y);
+        CPShape.setPosition(cp.position);
         CPShape.setTexture(&CPTexture);
         window.draw(CPShape);
         
@@ -77,12 +84,18 @@ void RenderRace::render(sf::RenderWindow& window) {
     }
     
     /* - - - Draw players - - - */
+    // interpolation parameter
+    float t = (float)frame/framePerTurn;
+    
     // Team1
     for (int i = 0; i < team1Size; i++) {
         Pod pod = team1[i];
-                
-        team1PodShape.setPosition(pod.position.x, pod.position.y);
-        team1PodShape.setRotation(pod.angle * 180.f / M_PI + 90.f);
+        Pod pod_bu = team1_bu[i];
+        
+        team1PodShape.setPosition(pod_bu.position + t*(pod.position - pod_bu.position));
+        
+        float diffAngle = reduceAngle(pod.angle - pod_bu.angle);
+        team1PodShape.setRotation((pod_bu.angle + t*diffAngle) * 180.f / M_PI + 90.f);
         
         window.draw(team1PodShape);
     }
@@ -90,10 +103,24 @@ void RenderRace::render(sf::RenderWindow& window) {
     // Team2
     for (int i = 0; i < team2Size; i++) {
         Pod pod = team2[i];
+        Pod pod_bu = team2_bu[i];
                 
-        team2PodShape.setPosition(pod.position.x, pod.position.y);
-        team2PodShape.setRotation(pod.angle * 180.f / M_PI + 90.f);
+        team2PodShape.setPosition(pod_bu.position + t*(pod.position - pod_bu.position));
+        
+        float diffAngle = reduceAngle(pod.angle - pod_bu.angle);
+        team2PodShape.setRotation((pod_bu.angle + t*diffAngle) * 180.f / M_PI + 90.f);
         
         window.draw(team2PodShape);
+    }
+}
+
+
+void RenderRace::renderUpdate() {
+    frame = (frame+1)%framePerTurn;
+    if (frame == 0) {
+        checkpoints_bu = checkpoints;
+        team1_bu = team1;
+        team2_bu = team2;
+        update();
     }
 }
