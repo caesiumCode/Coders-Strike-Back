@@ -30,7 +30,7 @@ private:
     std::vector<Checkpoint> checkpoints_bu;
     
     // Frame
-    const int framePerTurn = 7;
+    const int framePerTurn = 5;
     int frame;
 };
 
