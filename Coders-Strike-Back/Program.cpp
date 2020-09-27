@@ -28,7 +28,7 @@ void Program::run() {
             
             if (event.type == sf::Event::KeyReleased) {
                 if (event.key.code == sf::Keyboard::R)
-                    race.reset();
+                    race.renderReset();
                 
                 if (event.key.code == sf::Keyboard::Space)
                     play = not play;

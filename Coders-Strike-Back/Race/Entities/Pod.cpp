@@ -32,7 +32,7 @@ void Pod::check(int checkpointsSize) {
 }
 
 Move Pod::nextMove(const std::vector<Checkpoint>& checkpoints) {
-    return Move(checkpoints[nextCheckpointId].position, 50);
+    return Move(checkpoints[nextCheckpointId].position, 100);
 }
 
 void Pod::startTurn(const std::vector<Checkpoint> & checkpoints) {

@@ -1,7 +1,6 @@
 #include "RenderRace.hpp"
 
 RenderRace::RenderRace() : RenderRace((int)time(nullptr)) {
-    framePerTurn = 5;
     frame = -1;
 }
 
@@ -114,7 +113,6 @@ void RenderRace::render(sf::RenderWindow& window) {
     }
 }
 
-
 void RenderRace::renderUpdate() {
     frame = (frame+1)%framePerTurn;
     if (frame == 0) {
@@ -123,4 +121,14 @@ void RenderRace::renderUpdate() {
         team2_bu = team2;
         update();
     }
+}
+
+void RenderRace::renderReset() {
+    frame = -1;
+    
+    reset();
+    
+    checkpoints_bu = checkpoints;
+    team1_bu = team1;
+    team2_bu = team2;
 }

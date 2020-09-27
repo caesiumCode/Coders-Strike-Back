@@ -11,6 +11,7 @@ public:
     RenderRace(unsigned int);
     
     void renderUpdate();
+    void renderReset();
     
     // Resources
     sf::Font font;
@@ -29,7 +30,8 @@ private:
     std::vector<Checkpoint> checkpoints_bu;
     
     // Frame
-    int frame, framePerTurn;
+    const int framePerTurn = 7;
+    int frame;
 };
 
 #endif /* RenderRace_hpp */
