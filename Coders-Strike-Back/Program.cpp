@@ -3,7 +3,7 @@
 Program::Program() {
     // Set window
     window.create(windowDim(), "Coders Strike Back");
-    window.setFramerateLimit(30);
+    window.setFramerateLimit(120);
     
     // Set view
     viewRace.reset(sf::FloatRect(-MARGIN, -MARGIN, RACE::WIDTH + 2*MARGIN, RACE::HEIGHT + 2*MARGIN));
