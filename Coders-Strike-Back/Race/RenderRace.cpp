@@ -60,7 +60,7 @@ RenderRace::RenderRace(unsigned int seed) : Race(seed) {
     team2_bu = team2;
 }
 
-void RenderRace::render(sf::RenderWindow& window) {
+void RenderRace::renderBackground(sf::RenderWindow& window) {
     /* - - - Draw Background - - - */
     window.draw(background);
     
@@ -79,10 +79,10 @@ void RenderRace::render(sf::RenderWindow& window) {
         numbering.setOrigin(textRect.left + textRect.width/2.f, textRect.top + textRect.height/2.f);
         numbering.setPosition(checkpoints[i].position);
         window.draw(numbering);
-        
     }
-    
-    /* - - - Draw players - - - */
+}
+
+void RenderRace::renderPlayers(sf::RenderWindow& window) {
     // interpolation parameter
     float t = (float)frame/framePerTurn;
     
@@ -111,6 +111,11 @@ void RenderRace::render(sf::RenderWindow& window) {
         
         window.draw(team2PodShape);
     }
+}
+
+void RenderRace::render(sf::RenderWindow& window) {
+    renderBackground(window);
+    renderPlayers(window);
 }
 
 void RenderRace::renderUpdate() {

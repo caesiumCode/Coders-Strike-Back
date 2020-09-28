@@ -16,6 +16,8 @@ public:
     
     // Render method
     void render(sf::RenderWindow&);
+    void renderBackground(sf::RenderWindow&);
+    void renderPlayers(sf::RenderWindow&);
     
     // Resources
     sf::Font font;
