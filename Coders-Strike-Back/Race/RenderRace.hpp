@@ -3,6 +3,8 @@
 
 #include <iostream>
 
+#include <SFML/Audio.hpp>
+
 #include "Race.hpp"
 
 class RenderRace : public Race {
@@ -18,6 +20,10 @@ public:
     void render(sf::RenderWindow&);
     void renderBackground(sf::RenderWindow&);
     void renderPlayers(sf::RenderWindow&);
+    void renderInfo(sf::RenderWindow&);
+    
+    // Views
+    sf::View raceView;
     
     // Resources
     sf::Font font;
@@ -25,7 +31,7 @@ public:
     
     // Shapes
     sf::RectangleShape background, CPShape, team1PodShape, team2PodShape;
-    sf::Text numbering;
+    sf::Text numberingTxt, lapsTxt, turnsTxt, winnerTxt;
     
 private:
     // Backup

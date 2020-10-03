@@ -12,7 +12,7 @@ public:
     Collision(Checkpoint*, Pod*);
     Collision(Pod*, Pod*);
     
-    int type;
+    int type; // 0 : CP collision | 1 : pod collision
     
     Checkpoint * cp;
     std::vector<Pod*> pods;

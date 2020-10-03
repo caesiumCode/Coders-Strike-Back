@@ -35,7 +35,7 @@ public:
     
     // Race state
     int nextCheckpointId;
-    int checkedCheckpoint;
+    int checkedCheckpoints;
     int timeout;
     
 private:

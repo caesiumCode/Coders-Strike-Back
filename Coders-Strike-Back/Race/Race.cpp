@@ -35,6 +35,9 @@ void Race::reset(unsigned int s) {
     /* - - - Initialise race path - - - */
     // laps
     laps = 3;
+    lapsDone = 0;
+    turnsDone = 0;
+    raceFinished = false;
     
     // checkpoints
     checkpoints.clear();
@@ -58,6 +61,8 @@ void Race::reset(unsigned int s) {
     }
     
     /* - - - Initialise Players - - - */
+    currentWinner = 0;
+    collisionFlag = false;
     
     // Number of players
     team1Size = 2;
@@ -89,7 +94,6 @@ void Race::reset(unsigned int s) {
     
     /* - - - Current state variable - - - */
     lapsDone = 0;
-    turnsDone = 0;
 }
 
 Collision Race::nextCollision() {
@@ -148,22 +152,108 @@ Collision Race::nextCollision() {
 }
 
 void Race::update() {
-    // startTurn
+    if (!raceFinished) {
+        // startTurn
+        for (int i = 0; i < team1Size; i++)
+            team1[i].startTurn(checkpoints);
+        for (int i = 0; i < team2Size; i++)
+            team2[i].startTurn(checkpoints);
+        
+        updateTurn();
+        
+        // endTurn
+        for (int i = 0; i < team1Size; i++)
+            team1[i].endTurn();
+        for (int i = 0; i < team2Size; i++)
+            team2[i].endTurn();
+        
+        findWinner();
+
+        findDeadPods();
+        
+        turnsDone++;
+    }
+}
+
+void Race::findWinner() {
+    int team1CP = 0;
     for (int i = 0; i < team1Size; i++)
-        team1[i].startTurn(checkpoints);
-    for (int i = 0; i < team2Size; i++)
-        team2[i].startTurn(checkpoints);
+        if (team1[i].checkedCheckpoints > team1CP)
+            team1CP = team1[i].checkedCheckpoints;
     
-    updateTurn();
-    
-    // endTurn
-    for (int i = 0; i < team1Size; i++)
-        team1[i].endTurn();
+    int team2CP = 0;
     for (int i = 0; i < team2Size; i++)
-        team2[i].endTurn();
+        if (team2[i].checkedCheckpoints > team2CP)
+            team2CP = team2[i].checkedCheckpoints;
+    
+    if (team1CP > team2CP) {
+        currentWinner = 1;
+        lapsDone = team1CP/checkpointsSize;
+    }
+    else if (team2CP > team1CP) {
+        currentWinner = 2;
+        lapsDone = team2CP/checkpointsSize;
+    }
+    else {
+        float d = FLT_MAX;
+        
+        currentWinner = 1;
+        for (int i = 0; i < team1Size; i++) {
+            if (team1[i].checkedCheckpoints == team1CP) {
+                Pod pod = team1[i];
+                float dtemp = norm2(checkpoints[pod.nextCheckpointId].position - pod.position);
+                if (dtemp < d)
+                    d = dtemp;
+            }
+        }
+        for (int i = 0; i < team2Size; i++) {
+            if (team2[i].checkedCheckpoints == team2CP) {
+                Pod pod = team2[i];
+                float dtemp = norm2(checkpoints[pod.nextCheckpointId].position - pod.position);
+                if (dtemp < d) {
+                    d = dtemp;
+                    currentWinner = 2;
+                }
+            }
+        }
+    }
+    
+    if (lapsDone == laps)
+        raceFinished = true;
+}
+
+void Race::findDeadPods() {
+    // team1
+    bool dead = true;
+    int i = 0;
+    while (dead && i < team1Size) {
+        if (team1[i].timeout > 0)
+            dead = false;
+        i++;
+    }
+    
+    if (dead) {
+        currentWinner = 2;
+        raceFinished = true;
+    } else {
+        // team2
+        dead = true;
+        int i = 0;
+        while (dead && i < team2Size) {
+            if (team2[i].timeout > 0)
+                dead = false;
+            i++;
+        }
+        
+        if (dead) {
+            currentWinner = 1;
+            raceFinished = true;
+        }
+    }
 }
 
 void Race::updateTurn() {
+    collisionFlag = false;
     float turn = 0.f;
     Collision collision = nextCollision();
     
@@ -176,6 +266,7 @@ void Race::updateTurn() {
         }
         else if (collision.type == 1) {
             std::cout << std::setw(4) << "pod" << std::setw(6) << "pod" << std::setw(12) << collision.time << std::endl;
+            collisionFlag = true;
             bounce(collision);
         }
         

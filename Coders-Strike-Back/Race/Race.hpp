@@ -6,6 +6,7 @@
 #include <ctime>
 #include <iostream>
 #include <iomanip>
+#include <float.h>
 
 #include "Checkpoint.hpp"
 #include "Pod.hpp"
@@ -27,6 +28,7 @@ public:
     // Players
     std::vector<Pod> team1, team2;
     int team1Size, team2Size;
+    bool collisionFlag;
     
     // Race path
     int laps, checkpointsSize;
@@ -34,6 +36,8 @@ public:
     
     // Current race state
     int lapsDone, turnsDone;
+    int currentWinner; // 0 - no winner | 1 - team1 | 2 - team2
+    bool raceFinished;
     
     // seed
     unsigned int seed;
@@ -42,6 +46,9 @@ private:
     void updateTurn();
     void movePods(float);
     Collision nextCollision();
+    
+    void findWinner();
+    void findDeadPods();
 };
 
 #endif /* Race_hpp */

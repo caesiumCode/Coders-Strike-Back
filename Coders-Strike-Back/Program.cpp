@@ -5,11 +5,6 @@ Program::Program() {
     window.create(windowDim(), "Coders Strike Back");
     window.setFramerateLimit(120);
     
-    // Set view
-    viewRace.reset(sf::FloatRect(-MARGIN, -MARGIN, RACE::WIDTH + 2*MARGIN, RACE::HEIGHT + 2*MARGIN));
-    viewRace.setViewport(sf::FloatRect(0.f, 0.f, 1.f, 1.f));
-    window.setView(viewRace);
-    
     // Set variable
     play = true;
 }

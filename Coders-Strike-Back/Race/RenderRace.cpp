@@ -45,22 +45,44 @@ RenderRace::RenderRace(unsigned int seed) : Race(seed) {
     team2PodShape.setTexture(&team2Texture);
     
     // Checkpoints
-    numbering.setFont(font);
-    numbering.setFillColor(sf::Color::White);
-    numbering.setCharacterSize(CP::RADIUS*0.7f);
+    numberingTxt.setFont(font);
+    numberingTxt.setFillColor(sf::Color::White);
+    numberingTxt.setCharacterSize(CP::RADIUS*0.7f);
     
     CPShape.setSize(sf::Vector2f(2.f*CP::RADIUS, 2.f*CP::RADIUS));
     CPShape.setOrigin(CP::RADIUS, CP::RADIUS);
     CPShape.setTexture(&CPTexture);
+    
+    // Information
+    lapsTxt.setFont(font);
+    lapsTxt.setCharacterSize(50);
+    lapsTxt.setPosition(0.f, 0.f);
+    
+    turnsTxt.setFont(font);
+    turnsTxt.setFillColor(sf::Color::White);
+    turnsTxt.setCharacterSize(50);
+    turnsTxt.setPosition(0.f, 100.f);
+    
+    winnerTxt.setFont(font);
+    winnerTxt.setCharacterSize(100);
+    winnerTxt.setPosition(0.f, 200.f);
+    winnerTxt.setString("WINNER");
     
     /* - - - Initialise Backup - - - */
     
     checkpoints_bu = checkpoints;
     team1_bu = team1;
     team2_bu = team2;
+    
+    /* - - - Set view - - - */
+    raceView.reset(sf::FloatRect(0.f, 0.f, RACE::WIDTH, RACE::HEIGHT));
+    raceView.setViewport(sf::FloatRect(0.2f, 0.f, 0.8f, 1.f));
 }
 
 void RenderRace::renderBackground(sf::RenderWindow& window) {
+    window.setView(raceView);
+    
+    
     /* - - - Draw Background - - - */
     window.draw(background);
     
@@ -73,16 +95,19 @@ void RenderRace::renderBackground(sf::RenderWindow& window) {
         CPShape.setTexture(&CPTexture);
         window.draw(CPShape);
         
-        // Draw numbering
-        numbering.setString(std::to_string(i));
-        sf::FloatRect textRect = numbering.getLocalBounds();
-        numbering.setOrigin(textRect.left + textRect.width/2.f, textRect.top + textRect.height/2.f);
-        numbering.setPosition(checkpoints[i].position);
-        window.draw(numbering);
+        // Draw numberingTxt
+        numberingTxt.setString(std::to_string(i));
+        sf::FloatRect textRect = numberingTxt.getLocalBounds();
+        numberingTxt.setOrigin(textRect.left + textRect.width/2.f, textRect.top + textRect.height/2.f);
+        numberingTxt.setPosition(checkpoints[i].position);
+        window.draw(numberingTxt);
     }
 }
 
 void RenderRace::renderPlayers(sf::RenderWindow& window) {
+    window.setView(raceView);
+    
+    
     // interpolation parameter
     float t = (float)frame/framePerTurn;
     
@@ -113,9 +138,41 @@ void RenderRace::renderPlayers(sf::RenderWindow& window) {
     }
 }
 
+void RenderRace::renderInfo(sf::RenderWindow& window) {
+    window.setView(window.getDefaultView());
+    
+    
+    if (currentWinner == 1)
+        lapsTxt.setFillColor(sf::Color::Blue);
+    else if (currentWinner == 2)
+        lapsTxt.setFillColor(sf::Color::Red);
+    else
+        lapsTxt.setFillColor(sf::Color::White);
+    
+    lapsTxt.setString("Laps : " + std::to_string(lapsDone+1) + "/" + std::to_string(laps));
+    turnsTxt.setString("Turns : " + std::to_string(turnsDone));
+    
+    if (raceFinished) {
+        lapsTxt.setString("Laps : " + std::to_string(lapsDone) + "/" + std::to_string(laps));
+        
+        if (currentWinner == 1)
+            winnerTxt.setFillColor(sf::Color::Blue);
+        else if (currentWinner == 2)
+            winnerTxt.setFillColor(sf::Color::Red);
+        else
+            winnerTxt.setFillColor(sf::Color::White);
+        
+        window.draw(winnerTxt);
+    }
+    
+    window.draw(lapsTxt);
+    window.draw(turnsTxt);
+}
+
 void RenderRace::render(sf::RenderWindow& window) {
     renderBackground(window);
     renderPlayers(window);
+    renderInfo(window);
 }
 
 void RenderRace::renderUpdate() {
