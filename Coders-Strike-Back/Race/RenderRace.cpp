@@ -54,18 +54,20 @@ RenderRace::RenderRace(unsigned int seed) : Race(seed) {
     CPShape.setTexture(&CPTexture);
     
     // Information
+    int size = windowDim().height/20;
+    
     lapsTxt.setFont(font);
-    lapsTxt.setCharacterSize(50);
+    lapsTxt.setCharacterSize(size);
     lapsTxt.setPosition(0.f, 0.f);
     
     turnsTxt.setFont(font);
     turnsTxt.setFillColor(sf::Color::White);
-    turnsTxt.setCharacterSize(50);
-    turnsTxt.setPosition(0.f, 100.f);
+    turnsTxt.setCharacterSize(size);
+    turnsTxt.setPosition(0.f, size*2);
     
     winnerTxt.setFont(font);
-    winnerTxt.setCharacterSize(100);
-    winnerTxt.setPosition(0.f, 200.f);
+    winnerTxt.setCharacterSize(size*2);
+    winnerTxt.setPosition(0.f, size*4);
     winnerTxt.setString("WINNER");
     
     /* - - - Initialise Backup - - - */
