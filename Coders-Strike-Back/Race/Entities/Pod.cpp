@@ -19,6 +19,7 @@ void Pod::init() {
     checkedCheckpoints = 0;
     timeout = 100;
     shield = false;
+    shieldCooldown = 0;
 }
 
 void Pod::initRace(Checkpoint checkpoint) {
@@ -44,6 +45,10 @@ Move Pod::nextMove(const std::vector<Checkpoint>& checkpoints) {
 
 void Pod::startTurn(const std::vector<Checkpoint> & checkpoints) {
     Move move = nextMove(checkpoints);
+    if (timeout%10 == 0)
+        move.thrust = -2;
+    if (timeout%9 == 0)
+        move.thrust = -1;
     
     // update angle
     sf::Vector2f dir = move.target - position;
@@ -61,8 +66,27 @@ void Pod::startTurn(const std::vector<Checkpoint> & checkpoints) {
     angle = reduceAngle(angle);
     
     // update speed
-    dir = float(move.thrust) * sf::Vector2f(cos(angle), sin(angle));
-    speed += dir;
+    if (shieldCooldown > 0) {
+        shieldCooldown--;
+        shield = false;
+    }
+    if (move.thrust == -2) {
+        shield = true;
+        shieldCooldown = POD::SHIELD_COOLDOWN;
+    }
+    
+    if (shieldCooldown == 0) {
+        if (move.thrust == -1)
+            dir = float(POD::TRUST_BOOST) * sf::Vector2f(cos(angle), sin(angle));
+        else if (move.thrust < 0)
+            dir = sf::Vector2f(0.f, 0.f);
+        else if (move.thrust > 100)
+            dir = 100.f * sf::Vector2f(cos(angle), sin(angle));
+        else
+            dir = float(move.thrust) * sf::Vector2f(cos(angle), sin(angle));
+        
+        speed += dir;
+    }
 }
 
 void Pod::partialTurn(float t) {

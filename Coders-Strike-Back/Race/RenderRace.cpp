@@ -29,6 +29,10 @@ RenderRace::RenderRace(unsigned int seed) : Race(seed) {
     if (!CPTexture.loadFromFile(path))
         std::cout << "Resource not found : " << path << std::endl;
     
+    path = resourcePath() + "Textures/Shield.png";
+    if (!shieldTexture.loadFromFile(path))
+        std::cout << "Resource not found : " << path << std::endl;
+    
     /* - - - Initialise shapes - - -*/
     
     // Background
@@ -43,6 +47,10 @@ RenderRace::RenderRace(unsigned int seed) : Race(seed) {
     team2PodShape.setSize(sf::Vector2f(2.f*POD::RADIUS, 2.f*POD::RADIUS));
     team2PodShape.setOrigin(POD::RADIUS, POD::RADIUS);
     team2PodShape.setTexture(&team2Texture);
+    
+    shieldShape.setSize(sf::Vector2f(2.f*POD::RADIUS, 2.f*POD::RADIUS));
+    shieldShape.setOrigin(POD::RADIUS, POD::RADIUS);
+    shieldShape.setTexture(&shieldTexture);
     
     // Checkpoints
     numberingTxt.setFont(font);
@@ -123,6 +131,10 @@ void RenderRace::renderPlayers(sf::RenderWindow& window) {
         float diffAngle = reduceAngle(pod.angle - pod_bu.angle);
         team1PodShape.setRotation((pod_bu.angle + t*diffAngle) * 180.f / M_PI + 90.f);
         
+        if (pod.shield) {
+            shieldShape.setPosition(team1PodShape.getPosition());
+            window.draw(shieldShape);
+        }
         window.draw(team1PodShape);
     }
     
@@ -136,6 +148,10 @@ void RenderRace::renderPlayers(sf::RenderWindow& window) {
         float diffAngle = reduceAngle(pod.angle - pod_bu.angle);
         team2PodShape.setRotation((pod_bu.angle + t*diffAngle) * 180.f / M_PI + 90.f);
         
+        if (pod.shield) {
+            shieldShape.setPosition(team2PodShape.getPosition());
+            window.draw(shieldShape);
+        }
         window.draw(team2PodShape);
     }
 }

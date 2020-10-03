@@ -27,10 +27,10 @@ public:
     
     // Resources
     sf::Font font;
-    sf::Texture team1Texture, team2Texture, CPTexture, backgroundTexture;
+    sf::Texture team1Texture, team2Texture, CPTexture, backgroundTexture, shieldTexture;
     
     // Shapes
-    sf::RectangleShape background, CPShape, team1PodShape, team2PodShape;
+    sf::RectangleShape background, CPShape, team1PodShape, team2PodShape, shieldShape;
     sf::Text numberingTxt, lapsTxt, turnsTxt, winnerTxt;
     
 private:

@@ -261,11 +261,11 @@ void Race::updateTurn() {
         movePods(collision.time);
         
         if (collision.type == 0) {
-            std::cout << std::setw(4) << "CP" << std::setw(6) << "pod" << std::setw(12) << collision.time << std::endl;
+            std::cout << std::setw(4) << "CP" << std::setw(6) << "pod" << std::setw(12) << turnsDone + turn + collision.time << std::endl;
             collision.pods[0]->check(checkpointsSize);
         }
         else if (collision.type == 1) {
-            std::cout << std::setw(4) << "pod" << std::setw(6) << "pod" << std::setw(12) << collision.time << std::endl;
+            std::cout << std::setw(4) << "pod" << std::setw(6) << "pod" << std::setw(12) << turnsDone + turn + collision.time << std::endl;
             collisionFlag = true;
             bounce(collision);
         }
