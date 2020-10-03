@@ -45,10 +45,6 @@ Move Pod::nextMove(const std::vector<Checkpoint>& checkpoints) {
 
 void Pod::startTurn(const std::vector<Checkpoint> & checkpoints) {
     Move move = nextMove(checkpoints);
-    if (timeout%10 == 0)
-        move.thrust = -2;
-    if (timeout%9 == 0)
-        move.thrust = -1;
     
     // update angle
     sf::Vector2f dir = move.target - position;
