@@ -3,8 +3,6 @@
 
 #include <iostream>
 
-#include <SFML/Audio.hpp>
-
 #include "Race.hpp"
 
 class RenderRace : public Race {
