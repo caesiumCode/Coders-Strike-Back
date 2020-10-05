@@ -2,7 +2,7 @@
 #define Species_hpp
 
 #include <vector>
-#include "Genome.hpp">
+#include "Genome.hpp"
 
 class Species {
 public:

@@ -2,7 +2,7 @@
 #define Genome_hpp
 
 #include <vector>
-#include "Gene.hpp">
+#include "Gene.hpp"
 
 class Genome {
 public:
