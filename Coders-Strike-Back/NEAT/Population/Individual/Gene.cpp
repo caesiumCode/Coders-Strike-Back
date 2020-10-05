@@ -5,8 +5,9 @@ Node::Node() {
     outputs.clear();
 }
 
-Node::Node(char t) : Node() {
+Node::Node(char t, int i) : Node() {
     type = t;
+    id = i;
 }
 
 Link::Link() {

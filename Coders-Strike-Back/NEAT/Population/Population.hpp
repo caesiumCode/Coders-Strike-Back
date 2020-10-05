@@ -9,7 +9,9 @@
 class Population {
 public:
     Population();
+    Population(int);
 
+    int size;
     std::vector<Genome> genomes;
     std::vector<Species> species;
 

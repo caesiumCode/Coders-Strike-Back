@@ -5,6 +5,8 @@ Genome::Genome() {
     nodes.clear();
     
     score = 0.f;
+    
+    /* - - - Nodes - - - */
 }
 
 

@@ -9,7 +9,7 @@ class Link;
 class Node {
 public:
     Node();
-    Node(char);
+    Node(char, int);
     
     std::vector<Link*> inputs;
     std::vector<Link*> outputs;
