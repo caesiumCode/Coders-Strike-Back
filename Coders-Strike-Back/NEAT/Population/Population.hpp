@@ -13,9 +13,11 @@ public:
     std::vector<Genome> genomes;
     std::vector<Species> species;
 
-    void simulate(int);
-    void regroup();
-    Population nextGeneration();
+    void play(int);
+    void speciation();
+    void selection();
+    void mating();
+    void mutation();
 };
 
 #endif /* Population_hpp */

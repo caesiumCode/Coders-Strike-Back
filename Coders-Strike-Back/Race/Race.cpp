@@ -29,9 +29,6 @@ void Race::reset(unsigned int s) {
     seed = s;
     srand(seed);
     
-    std::cout << "- - - - - - - - RESET - - - - - - - -" << std::endl;
-    std::cout << "seed " << seed << std::endl;
-    
     /* - - - Initialise race path - - - */
     // laps
     laps = 3;
@@ -260,12 +257,9 @@ void Race::updateTurn() {
     while (collision.type != -1 && collision.time + turn <= 1.f) {
         movePods(collision.time);
         
-        if (collision.type == 0) {
-            std::cout << std::setw(4) << "CP" << std::setw(6) << "pod" << std::setw(12) << turnsDone + turn + collision.time << std::endl;
+        if (collision.type == 0)
             collision.pods[0]->check(checkpointsSize);
-        }
         else if (collision.type == 1) {
-            std::cout << std::setw(4) << "pod" << std::setw(6) << "pod" << std::setw(12) << turnsDone + turn + collision.time << std::endl;
             collisionFlag = true;
             bounce(collision);
         }

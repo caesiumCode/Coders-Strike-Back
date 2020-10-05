@@ -4,8 +4,6 @@
 #include <vector>
 #include <cstdlib>
 #include <ctime>
-#include <iostream>
-#include <iomanip>
 #include <float.h>
 
 #include "Checkpoint.hpp"
