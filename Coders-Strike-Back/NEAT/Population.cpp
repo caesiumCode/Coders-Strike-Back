@@ -1,12 +1,6 @@
 #include "Population.hpp"
 
 Population::Population() {
-	id = 0;
-	genomes.clear();
-}
-
-Population::Population(int popId) {
-	id = popId;
 	genomes.clear();
 }
 
@@ -18,6 +12,6 @@ void Population::regroup() {
 
 }
 
-Population Population::createNewGeneration() {
+Population Population::nextGeneration() {
 	return Population();
 }

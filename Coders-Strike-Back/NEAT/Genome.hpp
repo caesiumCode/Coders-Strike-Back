@@ -2,13 +2,17 @@
 #define Genome_hpp
 
 #include <vector>
+
 #include "Gene.hpp"
 
 class Genome {
 public:
     Genome();
 
-    std::vector<Gene> genes;
+    std::vector<Link> links;
+    std::vector<Node> nodes;
+    
+    float score;
 };
 
 #endif /* Genome_hpp */
