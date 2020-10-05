@@ -2,8 +2,8 @@
 #define Population_hpp
 
 #include <vector>
-#include "Genome.hpp">
-#include "Species.hpp">
+#include "Genome.hpp"
+#include "Species.hpp"
 
 class Population {
 public:
