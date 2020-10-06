@@ -1,10 +1,16 @@
 #include "RenderRace.hpp"
 
-RenderRace::RenderRace() : RenderRace((int)time(nullptr)) {
-    frame = -1;
+RenderRace::RenderRace() : Race() {
+    init();
 }
 
-RenderRace::RenderRace(unsigned int seed) : Race(seed) {
+RenderRace::RenderRace(int t1, int t2) : Race(t1, t2) {
+    init();
+}
+
+void RenderRace::init() {
+    frame = -1;
+    
     /* - - - Load resources - - -*/
     
     // Load font

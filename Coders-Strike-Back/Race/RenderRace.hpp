@@ -8,7 +8,7 @@
 class RenderRace : public Race {
 public:
     RenderRace();
-    RenderRace(unsigned int);
+    RenderRace(int, int);
     
     void renderUpdate();
     void renderReset();
@@ -31,7 +31,9 @@ public:
     sf::RectangleShape background, CPShape, team1PodShape, team2PodShape, shieldShape;
     sf::Text numberingTxt, lapsTxt, turnsTxt, winnerTxt;
     
-private:
+private:    
+    void init();
+    
     // Backup
     std::vector<Pod> team1_bu, team2_bu;
     std::vector<Checkpoint> checkpoints_bu;

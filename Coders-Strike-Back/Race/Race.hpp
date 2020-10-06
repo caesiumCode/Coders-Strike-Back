@@ -17,7 +17,7 @@
 class Race {
 public:
     Race();
-    Race(unsigned int);
+    Race(int, int);
     
     void reset();
     void reset(unsigned int);

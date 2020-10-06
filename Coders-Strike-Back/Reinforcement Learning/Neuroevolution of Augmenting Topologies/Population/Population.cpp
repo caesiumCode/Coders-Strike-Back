@@ -15,3 +15,19 @@ Population::Population(int s) : Population() {
 void Population::play(int) {
 
 }
+
+void Population::speciation() {
+    
+}
+
+void Population::selection() {
+    
+}
+
+void Population::mating() {
+    
+}
+
+void Population::mutation() {
+    
+}

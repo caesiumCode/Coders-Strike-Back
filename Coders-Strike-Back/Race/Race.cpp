@@ -11,12 +11,18 @@ int rand(int min, int max);
 /* - - - Class members - - - */
 
 Race::Race() {
+    team1Size = 2;
+    team2Size = 2;
+    
     seed = (int)time(nullptr);
     reset(seed);
 }
 
-Race::Race(unsigned int s) {
-    seed = s;
+Race::Race(int t1, int t2) {
+    team1Size = t1;
+    team2Size = t2;
+    
+    seed = (int)time(nullptr);
     reset(seed);
 }
 
@@ -62,8 +68,6 @@ void Race::reset(unsigned int s) {
     collisionFlag = false;
     
     // Number of players
-    team1Size = 2;
-    team2Size = 2;
     int nbPlayers = team1Size+team2Size;
     team1.clear();
     team2.clear();
@@ -229,7 +233,7 @@ void Race::findDeadPods() {
         i++;
     }
     
-    if (dead) {
+    if (dead && team1Size > 0) {
         currentWinner = 2;
         raceFinished = true;
     } else {
@@ -242,7 +246,7 @@ void Race::findDeadPods() {
             i++;
         }
         
-        if (dead) {
+        if (dead && team2Size > 0) {
             currentWinner = 1;
             raceFinished = true;
         }
