@@ -20,6 +20,15 @@ void Pod::init() {
     timeout = 100;
     shield = false;
     shieldCooldown = 0;
+    brain = Brain();
+}
+
+void Pod::initBrain(FFNN * ffnn) {
+    brain.setFFNN(ffnn);
+}
+
+void Pod::initBrain(Genome * genome) {
+    brain.setGenome(genome);
 }
 
 void Pod::initRace(Checkpoint checkpoint) {
@@ -34,17 +43,8 @@ void Pod::check(int checkpointsSize) {
     checkedCheckpoints++;
 }
 
-Move Pod::nextMove(const std::vector<Checkpoint>& checkpoints) {
-    Checkpoint nextCP = checkpoints[nextCheckpointId];
-    if ((norm(nextCP.position - position) < 2000.f && norm(speed) > 500.f) ||
-        abs(reduceAngle(angle - absAngle(nextCP.position - position))) > M_PI / 3.f)
-        return Move(nextCP.position - 3.f*speed, 0);
-    else
-        return Move(nextCP.position - 3.f*speed, 100);
-}
-
 void Pod::startTurn(const std::vector<Checkpoint> & checkpoints) {
-    Move move = nextMove(checkpoints);
+    Move move = brain.decision(position, speed, angle, checkpoints, nextCheckpointId);
     
     // update angle
     sf::Vector2f dir = move.target - position;

@@ -22,5 +22,6 @@ Genome::Genome() {
     }
 }
 
-
-
+std::vector<float> Genome::evaluate(std::vector<float> input) {
+    return {};
+}

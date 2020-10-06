@@ -8,6 +8,8 @@
 class Genome {
 public:
     Genome();
+    
+    std::vector<float> evaluate(std::vector<float>);
 
     std::vector<Link> links;
     std::vector<Node> nodes;

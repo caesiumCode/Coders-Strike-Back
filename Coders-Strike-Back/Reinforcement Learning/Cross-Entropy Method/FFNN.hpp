@@ -7,6 +7,7 @@ typedef std::vector<std::vector<float>> Matrix;
 
 // Feedforward Neural Network
 class FFNN {
+public:
     FFNN();
     FFNN(std::vector<int>);
     

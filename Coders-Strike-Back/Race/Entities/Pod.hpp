@@ -10,6 +10,8 @@
 
 #include "Env.hpp"
 
+#include "Brain.hpp"
+
 class Pod : public Entity {
 public:
     Pod();
@@ -17,13 +19,14 @@ public:
     Pod(sf::Vector2f, float);
     
     void initRace(Checkpoint);
+    void initBrain(FFNN*);
+    void initBrain(Genome*);
     
     void check(int);
     
     void startTurn(const std::vector<Checkpoint>&);
     void partialTurn(float);
     void endTurn();
-    
     
     // Physical state
     float angle;
@@ -41,9 +44,7 @@ public:
 private:
     void init();
     
-    // NeuralNet brain;
-    
-    Move nextMove(const std::vector<Checkpoint>&);
+    Brain brain;        
 };
 
 #endif /* Pod_hpp */
