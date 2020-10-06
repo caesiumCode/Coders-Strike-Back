@@ -1,9 +1,7 @@
 #ifndef FFNN_hpp
 #define FFNN_hpp
 
-#include <vector>
-
-typedef std::vector<std::vector<float>> Matrix;
+#include "LinearAlgebra.hpp"
 
 // Feedforward Neural Network
 class FFNN {

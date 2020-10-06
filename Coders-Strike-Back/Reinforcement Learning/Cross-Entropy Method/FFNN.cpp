@@ -5,9 +5,6 @@ float ReLU(float);
 
 
 FFNN::FFNN() {
-    shape.clear();
-    weights.clear();
-    biais.clear();
     layers = 0;
 }
 
@@ -59,8 +56,8 @@ void FFNN::addLayer(int s) {
     int prevLayer = shape.back();
     shape.push_back(s);
     
-    weights.push_back(Matrix(s, std::vector<float>(prevLayer, 0.f)));
-    biais.push_back(std::vector<float>(s, 0.f));
+    //weights.push_back(Matrix(s, std::vector<float>(prevLayer, 0.f)));
+    //biais.push_back(std::vector<float>(s, 0.f));
 }
 
 
