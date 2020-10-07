@@ -21,10 +21,7 @@ void Pod::init() {
     shield = false;
     shieldCooldown = 0;
     brain = Brain();
-}
-
-void Pod::initBrain(FFNN * ffnn) {
-    brain.setFFNN(ffnn);
+    score = 0.f;
 }
 
 void Pod::initBrain(Genome * genome) {
@@ -32,6 +29,7 @@ void Pod::initBrain(Genome * genome) {
 }
 
 void Pod::initRace(Checkpoint checkpoint) {
+    score = 0.f;
     sf::Vector2f dir = checkpoint.position - position;
     
     angle = absAngle(dir);
@@ -83,6 +81,9 @@ void Pod::startTurn(const std::vector<Checkpoint> & checkpoints) {
         
         speed += dir;
     }
+    
+    // update score
+    score -= norm(checkpoints[nextCheckpointId].position - position);
 }
 
 void Pod::partialTurn(float t) {

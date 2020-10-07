@@ -1,25 +1,13 @@
 #include "Brain.hpp"
 
 Brain::Brain() {
-    ffnn = nullptr;
     genome = nullptr;
     empty = true;
-}
-
-void Brain::setFFNN(FFNN * ai) {
-    if (ai != nullptr) {
-        ffnn = ai;
-        genome = nullptr;
-        empty = false;
-    } else {
-        Brain();
-    }
 }
 
 void Brain::setGenome(Genome * ai) {
     if (ai != nullptr) {
         genome = ai;
-        ffnn = nullptr;
         empty = false;
     } else {
         Brain();
@@ -39,16 +27,11 @@ Move Brain::decision(const sf::Vector2f& position, const sf::Vector2f& speed, fl
             move.thrust = 0;
         else
             move.thrust = 100;
-    } else if (ffnn != nullptr) {
-        move = Move(ffnn->evaluate({
-            position.x, position.y, angle, speed.x, speed.y,
-            nextCP.position.x, nextCP.position.y,
-            nextCP2.position.x, nextCP2.position.y}));
     } else if (genome != nullptr) {
         move = Move(genome->evaluate({
-            position.x, position.y, angle, speed.x, speed.y,
-            nextCP.position.x, nextCP.position.y,
-            nextCP2.position.x, nextCP2.position.y}));
+            position.x/RACE::WIDTH, position.y/RACE::HEIGHT, angle/float(M_PI), speed.x/10.f, speed.y/10.f,
+            nextCP.position.x/RACE::WIDTH, nextCP.position.y/RACE::HEIGHT,
+            nextCP2.position.x/RACE::WIDTH, nextCP2.position.y/RACE::HEIGHT}));
     }
     
     return move;

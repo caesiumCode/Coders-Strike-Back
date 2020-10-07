@@ -5,6 +5,8 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "Env.hpp"
+
 class Move {
 public:
     Move();

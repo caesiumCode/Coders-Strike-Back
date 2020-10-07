@@ -19,7 +19,6 @@ public:
     Pod(sf::Vector2f, float);
     
     void initRace(Checkpoint);
-    void initBrain(FFNN*);
     void initBrain(Genome*);
     
     void check(int);
@@ -40,6 +39,9 @@ public:
     int nextCheckpointId;
     int checkedCheckpoints;
     int timeout;
+    
+    // score
+    float score;
     
 private:
     void init();

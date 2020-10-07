@@ -10,7 +10,7 @@ Program::Program() {
 }
 
 void Program::run() {
-    RenderRace race;
+    RenderRace race(1, 0);
     
     // Program loop
     while (window.isOpen()) {

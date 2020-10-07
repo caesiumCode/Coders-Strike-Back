@@ -97,13 +97,6 @@ void Race::reset(unsigned int s) {
     lapsDone = 0;
 }
 
-void Race::setBrains(std::vector<FFNN *> ffnns1, std::vector<FFNN *> ffnns2) {
-    for (int i = 0; i < team1Size; i++)
-        team1[i].initBrain(ffnns1[i]);
-    for (int i = 0; i < team2Size; i++)
-        team2[i].initBrain(ffnns2[i]);
-}
-
 void Race::setBrains(std::vector<Genome *> genomes1, std::vector<Genome *> genomes2) {
     for (int i = 0; i < team1Size; i++)
         team1[i].initBrain(genomes1[i]);

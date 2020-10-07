@@ -14,7 +14,6 @@
 
 #include "Env.hpp"
 
-#include "FFNN.hpp"
 #include "Genome.hpp"
 
 class Race {
@@ -22,7 +21,6 @@ public:
     Race();
     Race(int, int);
     
-    void setBrains(std::vector<FFNN*>, std::vector<FFNN*>);
     void setBrains(std::vector<Genome*>, std::vector<Genome*>);
     
     void reset();
